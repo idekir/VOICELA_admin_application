@@ -88,8 +88,12 @@ public class ModeleJTable extends AbstractTableModel {
         this.fireTableDataChanged();
     }
      */
-    public void chargerLesEmployes() throws SQLException {
+    public void chargerLesVip() throws SQLException {
         leDaoVip.lireLesVip(leConteneur);
         fireTableDataChanged();  // notification de modification des données à la vue
+    }
+    
+    public void cleanVip() {
+        leConteneur.clear();
     }
 }

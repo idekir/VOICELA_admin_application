@@ -5,6 +5,7 @@
  */
 package application;
 
+import ihm.FenetreApplication;
 import accesAuxDonnees.DaoEvenement;
 import accesAuxDonnees.DaoVip;
 import accesAuxDonnees.SourceMySql;
@@ -63,7 +64,7 @@ public class Appli {
             
             
             // les modèles de données avec le DAO à partir duquel se feront les échanges de données
-            final ModeleJTable leModele = new ModeleJTable(daoVip);
+            ModeleJTable leModele = new ModeleJTable(daoVip);
             // la fenetre principale de l'application qui tourne dans l'EDT
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
                 @Override
