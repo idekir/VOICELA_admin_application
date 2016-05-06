@@ -8,11 +8,14 @@ package accesAuxDonnees;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class DaoVip {
-    
+/**
+ *
+ * @author Drédré
+ */
+public class DaoEvenement {
     private final Connection connexion;
 
-    public DaoVip(Connection connexion) throws SQLException {
-        this.connexion = connexion;
+    public DaoEvenement(Connection connexion) throws SQLException {
+        this.connexion = connexion;     
     }
 }
