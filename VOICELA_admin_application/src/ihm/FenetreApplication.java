@@ -99,6 +99,7 @@ public class FenetreApplication extends javax.swing.JFrame {
         try {
             leModele.cleanVip();
             leModele.chargerLesVip();
+            JOptionPane.showMessageDialog(null, "Table mis à jour","Avertissement", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -49,10 +49,10 @@ public class Appli {
                 laConnexion = laSourceDeDonnees.getConnection();
                 etat = true;
                 JOptionPane.showMessageDialog(null, "Connexion reussie",
-                        "avertissement", JOptionPane.WARNING_MESSAGE);
+                        "Avertissement", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "login incorrect : " + ex.getMessage(),
-                        "avertissement", JOptionPane.WARNING_MESSAGE);
+                        "Avertissement", JOptionPane.WARNING_MESSAGE);
             }
         } while (etat == false);
 
