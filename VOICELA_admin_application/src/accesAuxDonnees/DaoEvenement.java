@@ -13,9 +13,10 @@ import java.sql.SQLException;
  * @author Drédré
  */
 public class DaoEvenement {
+
     private final Connection connexion;
 
     public DaoEvenement(Connection connexion) throws SQLException {
-        this.connexion = connexion;     
+        this.connexion = connexion;
     }
 }

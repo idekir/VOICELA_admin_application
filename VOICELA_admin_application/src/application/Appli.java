@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import modele.ModeleJTable;
 
 /**
  *
@@ -46,6 +47,8 @@ public class Appli {
                 laSourceDeDonnees = SourceMySql.getSource(login);
                 laConnexion = laSourceDeDonnees.getConnection();
                 etat = true;
+                JOptionPane.showMessageDialog(null, "Connexion reussie",
+                        "avertissement", JOptionPane.WARNING_MESSAGE);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "login incorrect : " + ex.getMessage(),
                         "avertissement", JOptionPane.WARNING_MESSAGE);
@@ -58,7 +61,7 @@ public class Appli {
             daoVip = new DaoVip(laConnexion);
             daoEvenement = new DaoEvenement (laConnexion);
             
-            /*
+            
             // les modèles de données avec le DAO à partir duquel se feront les échanges de données
             final ModeleJTable leModele = new ModeleJTable(daoVip);
             // la fenetre principale de l'application qui tourne dans l'EDT
@@ -68,7 +71,7 @@ public class Appli {
                     new FenetreApplication(leModele).setVisible(true);
                 }
             });
-            */
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "problème dans la création des objets nécessaires" + ex.getMessage(),
                     "avertissement", JOptionPane.WARNING_MESSAGE);
