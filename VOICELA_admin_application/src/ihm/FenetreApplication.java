@@ -74,6 +74,11 @@ public class FenetreApplication extends javax.swing.JFrame {
         });
 
         jButton2.setText("Supprimer VIP");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Ajouter Mariage");
 
@@ -157,6 +162,16 @@ public class FenetreApplication extends javax.swing.JFrame {
             System.out.println("Exception à l'insertion : " + e.getMessage());
         }
     }//GEN-LAST:event_addVipActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            int ligne = laTable.getSelectedRow();
+            leModele.supprimerVip(ligne);
+        } catch (Exception e) {
+            System.out.println("Exception à la suppression : " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addVip;

@@ -38,18 +38,19 @@ public class DaoVip {
     }
 
     public void ajouterVip(Vip leVip) throws SQLException {
-        String requete = "INSERT INTO VIP (`numVip`, `nomVip`, `prenomVip`, `civilite`, `dateNaissance`, `lieuNaissance`, `codeRole`, `codeStatut`, `nomPays`) VALUES (?, '?', '?', '?', '?', '?', ?, ?, '?')";
+        String requete = "INSERT INTO VIP (nomVip, prenomVip, civilite, dateNaissance, lieuNaissance, codeRole, codeStatut, nomPays, numVip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
-
-        pstmt.setInt(1, leVip.getNumVip());
-        pstmt.setString(2, leVip.getNomVip());
-        pstmt.setString(3, leVip.getPrenomVip());
-        pstmt.setString(4, leVip.getCivilite());
-        pstmt.setDate(5, (Date) leVip.getDateNaissance());
-        pstmt.setString(6, leVip.getLieuNaissance());
-        pstmt.setInt(7, leVip.getCodeRole());
-        pstmt.setInt(8, leVip.getCodeStatut());
-        pstmt.setString(9, leVip.getNomPays());
+        
+        pstmt.setString(1, leVip.getNomVip());
+        pstmt.setString(2, leVip.getPrenomVip());
+        pstmt.setString(3, leVip.getCivilite());
+        pstmt.setDate(4, (Date) leVip.getDateNaissance());
+        pstmt.setString(5, leVip.getLieuNaissance());
+        pstmt.setInt(6, leVip.getCodeRole());
+        pstmt.setInt(7, leVip.getCodeStatut());
+        pstmt.setString(8, leVip.getNomPays());
+        pstmt.setInt(9, leVip.getNumVip());
+        
         pstmt.executeUpdate();
         pstmt.close();
     }

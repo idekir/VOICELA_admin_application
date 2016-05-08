@@ -68,7 +68,6 @@ public class ModeleJTable extends AbstractTableModel {
     }
 
     @Override
-
     public String getColumnName(int column) {
         return titre[column];
     }
@@ -78,14 +77,14 @@ public class ModeleJTable extends AbstractTableModel {
         leConteneur.add(vip);
         this.fireTableDataChanged();
     }
-    /*
+    
     public void supprimerVip(int ligne) throws SQLException {
         int numVip = (int) getValueAt(ligne, 0);
         leDaoVip.supprimerVip(numVip);
         leConteneur.remove(ligne);
         this.fireTableDataChanged();
     }
-     */
+    
     public void chargerLesVip() throws SQLException {
         leDaoVip.lireLesVip(leConteneur);
         fireTableDataChanged();  // notification de modification des données à la vue

@@ -1,8 +1,11 @@
 package ihm;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import metier.Vip;
+import modele.ModeleJTable;
 
 public class FenetreSaisie extends javax.swing.JDialog {
 
@@ -61,7 +64,13 @@ public class FenetreSaisie extends javax.swing.JDialog {
 
         jLabel1.setText("Nouveau VIP");
 
-        lblDateNaiss.setText("Date naissance ()");
+        lblDateNaiss.setText("Date naissance (dd-mm-yyyy)");
+
+        txDateNaiss.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txDateNaissActionPerformed(evt);
+            }
+        });
 
         lblLieuNaiss.setText("Lieu Naissance");
 
@@ -170,6 +179,8 @@ public class FenetreSaisie extends javax.swing.JDialog {
     private void btValidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValidActionPerformed
         // TODO add your handling code here:
         try {
+            //vip.setNumVip(0);
+            
             if (txNom.getText().isEmpty()) {
                 throw new Exception("champ prenom vide");
             }
@@ -180,20 +191,41 @@ public class FenetreSaisie extends javax.swing.JDialog {
             }
             vip.setPrenomVip(txPrenom.getText());
             
-            int indexCb = cbCivilite.getSelectedIndex();
-            StringBuffer civiliteVip;
-            if(indexCb == 1){
+            int indexCbCivilite = cbCivilite.getSelectedIndex();
+            String civiliteVip;
+            if(indexCbCivilite == 1){
               vip.setCivilite("M"); 
             }else{
               vip.setCivilite("F");
             }
             
             if (txDateNaiss.getText().isEmpty()) {
-                throw new Exception("champ date naissance vide");
+                throw new Exception("champ date vide");
             }
-            vip.setDateNaissance(Calendar.(txDateNaiss.getText());
+            DateFormat format = new SimpleDateFormat("DD-MM-YYYY");
+            Date date = format.parse(txDateNaiss.getText());
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            vip.setDateNaissance(sqlDate);
             
+            if (txLieuNaiss.getText().isEmpty()) {
+                throw new Exception("champ lieu naissance vide");
+            }
+            vip.setLieuNaissance(txLieuNaiss.getText());
             
+            int indexCbRole = cbRole.getSelectedIndex();
+            String roleVip;
+            if(indexCbRole == 1){
+              vip.setCodeRole(1); 
+            }else if (indexCbRole == 1){
+              vip.setCodeRole(2);
+            }else{
+              vip.setCodeRole(3);
+            }
+            
+            if (txPays.getText().isEmpty()) {
+                throw new Exception("champ pays vide");
+            }
+            vip.setNomPays(txPays.getText());
             
             etatSortie = true;
             this.dispose();
@@ -206,6 +238,10 @@ public class FenetreSaisie extends javax.swing.JDialog {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_cbCiviliteActionPerformed
+
+    private void txDateNaissActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txDateNaissActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txDateNaissActionPerformed
 
     public boolean doModal() {
         setVisible(true);
