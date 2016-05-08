@@ -179,26 +179,24 @@ public class FenetreSaisie extends javax.swing.JDialog {
     private void btValidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValidActionPerformed
         // TODO add your handling code here:
         try {
-            //vip.setNumVip(0);
-            
+            //nom
             if (txNom.getText().isEmpty()) {
                 throw new Exception("champ prenom vide");
             }
             vip.setNomVip(txNom.getText());
-            
+            //prenom
             if (txPrenom.getText().isEmpty()) {
                 throw new Exception("champ nom vide");
             }
             vip.setPrenomVip(txPrenom.getText());
-            
-            int indexCbCivilite = cbCivilite.getSelectedIndex();
-            String civiliteVip;
-            if(indexCbCivilite == 0){
-              vip.setCivilite("M"); 
+            //civilite
+            String civilite = cbCivilite.getSelectedItem().toString();
+            if("Homme".equals(civilite)){
+                vip.setCivilite("H");
             }else{
-              vip.setCivilite("F");
+                vip.setCivilite("F"); 
             }
-            
+            //date naissance        
             if (txDateNaiss.getText().isEmpty()) {
                 throw new Exception("champ date vide");
             }
@@ -212,14 +210,13 @@ public class FenetreSaisie extends javax.swing.JDialog {
             }
             vip.setLieuNaissance(txLieuNaiss.getText());
             
-            int indexCbRole = cbRole.getSelectedIndex();
-            String roleVip;
-            if(indexCbRole == 1){
-              vip.setCodeRole(1); 
-            }else if (indexCbRole == 1){
-              vip.setCodeRole(2);
+            String role = cbRole.getSelectedItem().toString();
+            if("Acteur".equals(role)){
+                vip.setCodeRole(1);
+            }else if ("Réalisateur".equals(role)){
+                vip.setCodeRole(2); 
             }else{
-              vip.setCodeRole(3);
+                 vip.setCodeRole(3);
             }
             
             if (txPays.getText().isEmpty()) {
