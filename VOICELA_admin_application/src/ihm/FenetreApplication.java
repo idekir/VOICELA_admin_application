@@ -42,9 +42,14 @@ public class FenetreApplication extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         laTable = new javax.swing.JTable();
         jButtonRefresh = new javax.swing.JButton();
+        addVip = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Affichage des employés");
+        setTitle("Affichage des VIP");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -61,6 +66,21 @@ public class FenetreApplication extends javax.swing.JFrame {
             }
         });
 
+        addVip.setText("Ajouter VIP");
+        addVip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addVipActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Supprimer VIP");
+
+        jButton3.setText("Ajouter Mariage");
+
+        jButton4.setText("Ajouter Divorce");
+
+        jButton5.setText("Ajouter photo VIP");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -68,9 +88,20 @@ public class FenetreApplication extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1027, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonRefresh)
+                        .addComponent(addVip)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonRefresh)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -81,7 +112,16 @@ public class FenetreApplication extends javax.swing.JFrame {
                 .addComponent(jButtonRefresh)
                 .addGap(5, 5, 5)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addVip)
+                    .addComponent(jButton2)
+                    .addComponent(jButton5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         pack();
@@ -105,7 +145,25 @@ public class FenetreApplication extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonRefreshActionPerformed
 
+    private void addVipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVipActionPerformed
+        // TODO add your handling code here:
+        try {
+            Vip vip = new Vip();
+            FenetreSaisie laSaisie = new FenetreSaisie(this, vip);
+            if (laSaisie.doModal() == true) {
+                leModele.insererVip(vip);
+            }
+        } catch (Exception e) {
+            System.out.println("Exception à l'insertion : " + e.getMessage());
+        }
+    }//GEN-LAST:event_addVipActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addVip;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButtonRefresh;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable laTable;

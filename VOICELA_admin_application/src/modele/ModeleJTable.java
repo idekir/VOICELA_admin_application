@@ -73,14 +73,12 @@ public class ModeleJTable extends AbstractTableModel {
         return titre[column];
     }
 
-    /*
-
     public void insererVip(Vip vip) throws SQLException {
-        leDaoVip.insererVip(vip);
+        leDaoVip.ajouterVip(vip);
         leConteneur.add(vip);
         this.fireTableDataChanged();
     }
-
+    /*
     public void supprimerVip(int ligne) throws SQLException {
         int numVip = (int) getValueAt(ligne, 0);
         leDaoVip.supprimerVip(numVip);
