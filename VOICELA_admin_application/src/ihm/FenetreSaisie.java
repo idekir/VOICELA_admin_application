@@ -193,7 +193,7 @@ public class FenetreSaisie extends javax.swing.JDialog {
             
             int indexCbCivilite = cbCivilite.getSelectedIndex();
             String civiliteVip;
-            if(indexCbCivilite == 1){
+            if(indexCbCivilite == 0){
               vip.setCivilite("M"); 
             }else{
               vip.setCivilite("F");

@@ -157,6 +157,8 @@ public class FenetreApplication extends javax.swing.JFrame {
             FenetreSaisie laSaisie = new FenetreSaisie(this, vip);
             if (laSaisie.doModal() == true) {
                 leModele.insererVip(vip);
+                leModele.cleanVip();
+                leModele.chargerLesVip();
             }
         } catch (Exception e) {
             System.out.println("Exception à l'insertion : " + e.getMessage());
