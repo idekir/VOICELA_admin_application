@@ -1,5 +1,6 @@
 package ihm;
 
+import java.util.Date;
 import javax.swing.JOptionPane;
 import metier.Vip;
 
@@ -187,6 +188,10 @@ public class FenetreSaisie extends javax.swing.JDialog {
               vip.setCivilite("F");
             }
             
+            if (txDateNaiss.getText().isEmpty()) {
+                throw new Exception("champ date naissance vide");
+            }
+            vip.setDateNaissance(Calendar.(txDateNaiss.getText());
             
             
             
