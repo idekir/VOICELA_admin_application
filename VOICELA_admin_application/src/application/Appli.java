@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import modele.ModeleJTable;
+import modele.ModeleJTableVip;
 
 /**
  *
@@ -48,11 +48,8 @@ public class Appli {
                 laSourceDeDonnees = SourceMySql.getSource(login);
                 laConnexion = laSourceDeDonnees.getConnection();
                 etat = true;
-                JOptionPane.showMessageDialog(null, "Connexion reussie",
-                        "Avertissement", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "login incorrect : " + ex.getMessage(),
-                        "Avertissement", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "login incorrect : " + ex.getMessage(),"Avertissement", JOptionPane.WARNING_MESSAGE);
             }
         } while (etat == false);
 
@@ -62,14 +59,14 @@ public class Appli {
             daoVip = new DaoVip(laConnexion);
             daoEvenement = new DaoEvenement (laConnexion);
             
-            
             // les modèles de données avec le DAO à partir duquel se feront les échanges de données
-            ModeleJTable leModele = new ModeleJTable(daoVip);
+            ModeleJTableVip leModele = new ModeleJTableVip(daoVip);
+            
             // la fenetre principale de l'application qui tourne dans l'EDT
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    new FenetreApplication(leModele).setVisible(true);
+                    new FenetreApplication(leModele, daoVip, daoEvenement).setVisible(true);
                 }
             });
             

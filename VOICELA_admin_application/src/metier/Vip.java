@@ -13,8 +13,6 @@ import java.util.Date;
  */
 public class Vip {
     
-    private static int lastNumVip = 0;
-    
     private int numVip;
     private String nomVip;
     private String prenomVip;
@@ -37,9 +35,7 @@ public class Vip {
         this.nomPays = nomPays;
     }
     
-    public Vip(String nomVip, String prenomVip, String civilite, Date dateNaissance, String lieuNaissance, int codeRole, int codeStatut, String nomPays) {
-        this.numVip = 0;
-        this.nomVip = nomVip;
+    public Vip(String nomVip, String prenomVip, String civilite, Date dateNaissance, String lieuNaissance, int codeRole, int codeStatut, String nomPays) {this.nomVip = nomVip;
         this.prenomVip = prenomVip;
         this.civilite = civilite;
         this.dateNaissance = dateNaissance;
@@ -50,6 +46,14 @@ public class Vip {
     }
     
     public Vip() {
+    }
+
+    public Vip(int numVip, String nomVip, String prenomVip, String civilite, int codeStatut, String nomPays) {
+        this.nomVip = nomVip;
+        this.prenomVip = prenomVip;
+        this.civilite = civilite;
+        this.codeStatut = codeStatut;
+        this.nomPays = nomPays;
     }
 
     public int getNumVip() {
