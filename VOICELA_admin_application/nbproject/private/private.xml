@@ -15,12 +15,12 @@
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/ihm/FenetreEvenement.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/ihm/FenetreSaisiePhoto.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/metier/Vip.java</file>
-            <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/accesAuxDonnees/FTPSource.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/accesAuxDonnees/SourceMySql.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/accesAuxDonnees/DaoVip.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/ihm/FenetreSaisieVip.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/connexion.properties</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/ihm/FenetreIdentification.java</file>
+            <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/accesAuxDonnees/SourceFTP.java</file>
         </group>
     </open-files>
 </project-private>

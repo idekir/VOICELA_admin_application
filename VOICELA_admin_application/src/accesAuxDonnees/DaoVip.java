@@ -134,5 +134,17 @@ public class DaoVip {
         rset.close();
         pstmt.close();
     }
+    
+    public void ajouterPhotoVip(Vip vip, String filePath, Date datePhoto, String lieuPhoto) throws SQLException {
+        String requete = "INSERT INTO PHOTO (datePhoto, lieuPhoto, numeroSequentiel, numVip) VALUES (?, ?, ?, ?)";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        /*
+        pstmt.setDate(1, datePhoto);
+        pstmt.setString(2, lieuPhoto);
+        pstmt.setString(3, );
+        pstmt.setInt(4, vip.getNumVip());
+        */
+        pstmt.close();
+    }
 
 }

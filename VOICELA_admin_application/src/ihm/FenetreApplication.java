@@ -219,7 +219,11 @@ public class FenetreApplication extends javax.swing.JFrame {
         // TODO add your handling code here:
         int reponse = JOptionPane.showConfirmDialog(this, "Voulez vraiment sortir ?", "Confirmation", JOptionPane.YES_NO_OPTION);
         if (reponse == JOptionPane.YES_OPTION) {
+            
             this.dispose();
+            
+            
+            
         }
     }//GEN-LAST:event_formWindowClosing
 
@@ -264,13 +268,32 @@ public class FenetreApplication extends javax.swing.JFrame {
 
     private void addPhotoVipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPhotoVipActionPerformed
         // TODO add your handling code here:
+        try {
+            if (laTable.getSelectedRow() == -1) {
+                throw new Exception("Aucune ligne VIP selectionnée");
+            }
+            int ligne = laTable.getSelectedRow();
+            Vip vip = leModele.getVip(ligne);
+
+            FenetreSaisiePhoto laSaisiePhoto = new FenetreSaisiePhoto(this, vip, leDaoVip);
+            
+            if (laSaisiePhoto.doModal() == true) {
+                JOptionPane.showMessageDialog(null, "Photo VIP changée avec succès", "Information", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                throw new Exception("Erreur à l'insertion du mariage");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Exception à l'insertion : " + e.getMessage());
+        }
+
     }//GEN-LAST:event_addPhotoVipActionPerformed
 
     private void addMariageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMariageActionPerformed
         // TODO add your handling code here:
         try {
             if (laTable.getSelectedRow() == -1) {
-                throw new Exception("Aucune ligne pour le VIP conjoint selectionnée");
+                throw new Exception("Aucune ligne VIP selectionnée");
             }
 
             int ligne = laTable.getSelectedRow();
@@ -284,7 +307,7 @@ public class FenetreApplication extends javax.swing.JFrame {
             FenetreSaisieMariage laSaisie = new FenetreSaisieMariage(this, vip, new ModeleJTableAddMariage(leDaoVip), evenement);
             if (laSaisie.doModal() == true) {
                 leModeleEvenement.insererEvenement(evenement);
-                JOptionPane.showMessageDialog(null, "Mariage ajouté avec succès","Information", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Mariage ajouté avec succès", "Information", JOptionPane.INFORMATION_MESSAGE);
                 leModele.cleanVip();
                 leModele.chargerLesVip();
             } else {
