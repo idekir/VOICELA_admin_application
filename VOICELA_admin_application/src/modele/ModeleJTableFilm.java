@@ -6,17 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import metier.Film;
+import metier.Genre;
 
 public class ModeleJTableFilm extends AbstractTableModel {
 
     private List<Film> leConteneurFilm;
+    private List<Genre> leConteneurGenre;
     private String[] titre;
     private DaoFilm leDaoFilm;
+    
 
-    public ModeleJTableFilm(DaoFilm leDaoFilm) {
-        
-        this.leConteneurFilm = new ArrayList<>();
+    public ModeleJTableFilm(DaoFilm leDaoFilm) throws SQLException {
         this.leDaoFilm = leDaoFilm;
+        this.leConteneurFilm = new ArrayList<>();
+        this.leConteneurGenre = new ArrayList<>();
+        leDaoFilm.chargerGenre(leConteneurGenre);
         this.titre = new String[]{"Numéro visa", "Titre du film", "Année", "Genre"};
     }
 
@@ -41,7 +45,7 @@ public class ModeleJTableFilm extends AbstractTableModel {
         } else if (column == 2) {
             return film.getAnneeFilm();
         } else {
-            return film.getNumGenre();
+            return leConteneurFilm.getNomGenre(film.getNumGenre());
         }
     }
     
@@ -53,13 +57,24 @@ public class ModeleJTableFilm extends AbstractTableModel {
     public void chargerLesFilm() throws SQLException {
         leConteneurFilm.clear();
         leDaoFilm.lireLesFilm(leConteneurFilm);
-        fireTableDataChanged();  // notification de modification des données à la vue
+        fireTableDataChanged();
     }
     
     public void ajouterFilm(Film film) throws SQLException {
         leDaoFilm.ajouterFilm(film);
         leConteneurFilm.add(film);
         fireTableDataChanged();
+    }
+
+    public void chargerLesFilm(String text) throws SQLException {
+        leConteneurFilm.clear();
+        leDaoFilm.lireLesFilm(leConteneurFilm, text);
+        fireTableDataChanged();
+    }
+    
+    public String getNomGenre(int numGenre){
+        leConteneurGenre.contains(numGenre);
+        return 0;
     }
 
 }

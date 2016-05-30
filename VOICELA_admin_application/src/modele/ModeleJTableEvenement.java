@@ -81,6 +81,7 @@ public class ModeleJTableEvenement extends AbstractTableModel {
     }
     
     public void chargerLesEvenement() throws SQLException {
+        leConteneurEvenement.clear();
         leDaoEvenement.lireLesEvenement(leConteneurEvenement);
         fireTableDataChanged();
     }
@@ -98,5 +99,11 @@ public class ModeleJTableEvenement extends AbstractTableModel {
         leDaoEvenement.ajouterDivorce(divorce);
         leConteneurEvenement.set(0, divorce);
         this.fireTableDataChanged();
+    }
+
+    public void chargerLesEvenement(String text) throws SQLException {
+        leConteneurEvenement.clear();
+        leDaoEvenement.lireLesEvenement(leConteneurEvenement, text);
+        fireTableDataChanged();
     }
 }

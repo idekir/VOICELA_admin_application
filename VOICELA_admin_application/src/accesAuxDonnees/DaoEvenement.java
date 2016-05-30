@@ -15,7 +15,7 @@ public class DaoEvenement {
     public DaoEvenement(Connection connexion) throws SQLException {
         this.connexion = connexion;
     }
-    
+
     public void lireLesEvenement(List<Evenement> lesEvenement) throws SQLException {
         String requete = "select * from EVENEMENT";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
@@ -34,7 +34,7 @@ public class DaoEvenement {
     }
 
     public void ajouterEvenement(Evenement evenement) throws SQLException {
-        
+
         String requete = "INSERT INTO EVENEMENT (dateMariage, numVipConjoint, lieuMariage, dateDivorce, numVip) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
 
@@ -43,7 +43,7 @@ public class DaoEvenement {
         pstmt.setString(3, evenement.getLieuMariage());
         pstmt.setDate(4, (Date) evenement.getDateDivorce());
         pstmt.setInt(5, evenement.getNumVip());
-        
+
         pstmt.executeUpdate();
         pstmt.close();
     }
@@ -56,8 +56,32 @@ public class DaoEvenement {
         pstmt.setDate(2, (Date) divorce.getDateMariage());
         pstmt.setInt(3, divorce.getNumVip());
         pstmt.setInt(4, divorce.getNumVipConjoint());
-        
+
         pstmt.executeUpdate();
         pstmt.close();
-    } 
+    }
+
+    public void lireLesEvenement(List<Evenement> leConteneurEvenement, String text) throws SQLException {
+        text = "%" + text + "%";
+        String requete = "SELECT * FROM EVENEMENT WHERE numVip IN (SELECT numVip FROM VIP where prenomVip LIKE ? OR nomVip LIKE ?) OR numVipConjoint IN (SELECT numVip FROM VIP where prenomVip LIKE ? OR nomVip LIKE ?) OR lieuMariage LIKE ?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setString(1, text);
+        pstmt.setString(2, text);
+        pstmt.setString(3, text);
+        pstmt.setString(4, text);
+        pstmt.setString(5, text);
+
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            Date dateMariage = rset.getDate(1);
+            int numVipConjoint = rset.getInt(2);
+            String lieuMariage = rset.getString(3);
+            Date dateDivorce = rset.getDate(4);
+            int numVip = rset.getInt(5);
+            Evenement temp = new Evenement(dateMariage, numVipConjoint, lieuMariage, dateDivorce, numVip);
+            leConteneurEvenement.add(temp);
+        }
+        rset.close();
+        pstmt.close();
+    }
 }

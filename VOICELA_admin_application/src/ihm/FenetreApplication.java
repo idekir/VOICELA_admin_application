@@ -89,7 +89,6 @@ public class FenetreApplication extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jToggleButton1 = new javax.swing.JToggleButton();
         jButton2 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
@@ -97,7 +96,6 @@ public class FenetreApplication extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -242,18 +240,16 @@ public class FenetreApplication extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         jToggleButton1.setText("Rechercher");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Ajouter divorce");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton8.setText("Supprimer Mariage");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
             }
         });
 
@@ -280,6 +276,11 @@ public class FenetreApplication extends javax.swing.JFrame {
         );
 
         jButton9.setText("Réinitialiser");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Recherche :");
 
@@ -292,8 +293,6 @@ public class FenetreApplication extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,9 +325,7 @@ public class FenetreApplication extends javax.swing.JFrame {
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton8))
+                .addComponent(jButton2)
                 .addContainerGap())
         );
 
@@ -337,8 +334,6 @@ public class FenetreApplication extends javax.swing.JFrame {
         jTable2.setModel(leModeleFilm);
         jTable2.setSelectionBackground(new java.awt.Color(0, 153, 153));
         jScrollPane3.setViewportView(jTable2);
-
-        jButton3.setText("Supprimer Film");
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fonctions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 12), new java.awt.Color(0, 153, 153))); // NOI18N
 
@@ -388,10 +383,20 @@ public class FenetreApplication extends javax.swing.JFrame {
         );
 
         jButton10.setText("Réinitialiser");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Recherche :");
 
         jButton11.setText("Rechercher");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -400,9 +405,6 @@ public class FenetreApplication extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton3))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton10)
                         .addGap(18, 18, 18)
@@ -431,9 +433,7 @@ public class FenetreApplication extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 185, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addContainerGap())
+                .addGap(40, 40, 40))
         );
 
         jTabbedPane1.addTab("Affichage des Films", new javax.swing.ImageIcon("D:\\Drédré\\Desktop\\iconFilm.png"), jPanel3); // NOI18N
@@ -622,25 +622,6 @@ public class FenetreApplication extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTabbedPane1FocusGained
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-        try {
-            int ligne = jTable1.getSelectedRow();
-            Evenement mariage = leModeleEvenement.getEvenement(ligne);
-            
-            Vip vip1 = leModeleVip.getVipByNum(mariage.getNumVip());
-            Vip vip2 = leModeleVip.getVipByNum(mariage.getNumVipConjoint());
-            
-            int comfirm = JOptionPane.showConfirmDialog(this, "Comfirmer suppression mariage de " + vip1.getPrenomVip() + " " + vip1.getNomVip() + " et " + vip2.getPrenomVip() + " " + vip2.getNomVip() + " du " + mariage.getDateMariage() + " ?", "Avertissement", JOptionPane.YES_NO_OPTION);
-            if (comfirm == 0) {
-                //leModeleVip.supprimerVip(ligne);
-            }
-
-        } catch (Exception e) {
-            System.out.println("Exception à la suppression : " + e.getMessage());
-        }
-    }//GEN-LAST:event_jButton8ActionPerformed
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         try {
@@ -677,6 +658,41 @@ public class FenetreApplication extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        try {
+            leModeleEvenement.chargerLesEvenement(jTextField1.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+         try {
+            leModeleEvenement.chargerLesEvenement();
+        } catch (SQLException ex) {
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        try {
+            leModeleFilm.chargerLesFilm(jTextField3.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        try {
+            leModeleFilm.chargerLesFilm();
+        } catch (SQLException ex) {
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPhotoVip;
     private javax.swing.JButton addVip;
@@ -685,12 +701,10 @@ public class FenetreApplication extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonRefresh;
     private javax.swing.JLabel jLabel1;

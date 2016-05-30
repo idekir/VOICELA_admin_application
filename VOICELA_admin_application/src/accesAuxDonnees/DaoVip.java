@@ -39,7 +39,7 @@ public class DaoVip {
 
     public void lireLesVip(List<Vip> lesVip, String nom) throws SQLException {
         nom = "%" + nom + "%";
-        String requete = "SELECT * FROM VIP WHERE nomVip LIKE ? OR prenomVip LIKE ? OR lieuNaissance LIKE ? OR nomPays LIKE ?  ";
+        String requete = "SELECT * FROM VIP WHERE nomVip LIKE ? OR prenomVip LIKE ? OR lieuNaissance LIKE ? OR nomPays LIKE ? ";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         pstmt.setString(1, nom);
         pstmt.setString(2, nom);

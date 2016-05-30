@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JComboBox;
 import metier.Film;
+import metier.Genre;
 
 public class DaoFilm {
 
@@ -61,7 +62,7 @@ public class DaoFilm {
         String requete = "select numGenre from GENRE WHERE libelleGenre = ?";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         pstmt.setString(1, genre);
-        
+
         ResultSet rset = pstmt.executeQuery();
         int numGenre = 0;
         while (rset.next()) {       // traitement du résulat
@@ -72,11 +73,11 @@ public class DaoFilm {
         return numGenre;
     }
 
-    public void lireGenre(List<String[]> leConteneurGenre) throws SQLException{
+    public void lireGenre(List<String[]> leConteneurGenre) throws SQLException {
         String requete = "SELECT * from GENRE";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         ResultSet rset = pstmt.executeQuery();
-        
+
         while (rset.next()) {
             String[] temp = new String[2];
             temp[0] = Integer.toString(rset.getInt(2));
@@ -87,7 +88,7 @@ public class DaoFilm {
         pstmt.close();
     }
 
-    public void ajouterGenre(String newGenre) throws SQLException{
+    public void ajouterGenre(String newGenre) throws SQLException {
         String requete = "INSERT INTO GENRE (libelleGenre) VALUES (?)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         pstmt.setString(1, newGenre);
@@ -104,4 +105,39 @@ public class DaoFilm {
         pstmt.close();
     }
 
+    public void lireLesFilm(List<Film> leConteneurFilm, String text) throws SQLException {
+        text = "%" + text + "%";
+        String requete = "SELECT * FROM FILM WHERE titreFilm LIKE ? OR numVisa LIKE ? OR anneeFilm LIKE ?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setString(1, text);
+        pstmt.setString(2, text);
+        pstmt.setString(3, text);
+
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {       // traitement du résulat
+            int numVisa = rset.getInt(1);
+            String titreFilm = rset.getString(2);
+            int anneeFilm = rset.getInt(3);
+            int numGenre = rset.getInt(4);
+            Film temp = new Film(numVisa, titreFilm, anneeFilm, numGenre);
+            leConteneurFilm.add(temp);
+        }
+        rset.close();
+        pstmt.close();
+    }
+
+    public void chargerGenre(List<Genre> leConteneurGenre) throws SQLException {
+        String requete = "SELECT * from GENRE";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        ResultSet rset = pstmt.executeQuery();
+
+        while (rset.next()) {
+            Genre genre = new Genre();
+            genre.setNumGenre(rset.getInt(2));
+            genre.setNomGenre(rset.getString(1));
+            leConteneurGenre.add(genre);
+        }
+        rset.close();
+        pstmt.close();
+    }
 }
