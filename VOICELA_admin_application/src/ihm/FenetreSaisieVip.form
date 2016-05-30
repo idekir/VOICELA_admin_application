@@ -24,47 +24,71 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="lblPrenom" min="-2" pref="72" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="txPrenom" min="-2" pref="156" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="lblNom" min="-2" pref="111" max="-2" attributes="0"/>
+                              <EmptySpace pref="65" max="32767" attributes="0"/>
+                              <Component id="txNom" min="-2" pref="156" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="lblCivilite" max="32767" attributes="0"/>
+                                      <Component id="lblDateNaiss" max="32767" attributes="0"/>
+                                      <Component id="lblLieuNaiss" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="lblRole" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblPays" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txDateNaiss" max="32767" attributes="0"/>
+                                  <Component id="txLieuNaiss" max="32767" attributes="0"/>
+                                  <Component id="cbRole" alignment="0" pref="156" max="32767" attributes="0"/>
+                                  <Component id="cbCivilite" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txPays" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
                       <Component id="btValid" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lblCivilite" max="32767" attributes="0"/>
-                              <Component id="lblDateNaiss" max="32767" attributes="0"/>
-                              <Component id="lblLieuNaiss" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="lblRole" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblPays" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblPrenom" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
-                          <Component id="lblNom" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txNom" max="32767" attributes="0"/>
-                          <Component id="txPrenom" max="32767" attributes="0"/>
-                          <Component id="txPays" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cbRole" alignment="0" pref="325" max="32767" attributes="0"/>
-                          <Component id="cbCivilite" alignment="1" max="32767" attributes="0"/>
-                          <Component id="txLieuNaiss" alignment="1" max="32767" attributes="0"/>
-                          <Component id="txDateNaiss" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
               </Group>
+              <EmptySpace min="10" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jSeparator1" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="txNom" max="32767" attributes="0"/>
                   <Component id="lblNom" max="32767" attributes="0"/>
@@ -101,9 +125,9 @@
                   <Component id="lblPays" min="-2" max="-2" attributes="0"/>
                   <Component id="txPays" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btValid" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="btValid" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -115,12 +139,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblPrenom">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pr&#xe9;nom VIP :"/>
+        <Property name="text" type="java.lang.String" value="Pr&#xe9;nom VIP"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCivilite">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Civilit&#xe9; :"/>
+        <Property name="text" type="java.lang.String" value="Civilit&#xe9;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btValid">
@@ -133,12 +157,17 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblNom">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nom VIP :"/>
+        <Property name="text" type="java.lang.String" value="Nom VIP"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nouveau VIP"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblDateNaiss">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Date naissance (dd/mm/yyyy) :"/>
+        <Property name="text" type="java.lang.String" value="Date naissance (dd/mm/yyyy)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txDateNaiss">
@@ -148,14 +177,14 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblLieuNaiss">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Lieu Naissance :"/>
+        <Property name="text" type="java.lang.String" value="Lieu Naissance"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txLieuNaiss">
     </Component>
     <Component class="javax.swing.JLabel" name="lblRole">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Role :"/>
+        <Property name="text" type="java.lang.String" value="Role"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbRole">
@@ -190,51 +219,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblPays">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pays :"/>
+        <Property name="text" type="java.lang.String" value="Pays"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txPays">
     </Component>
-    <Container class="javax.swing.JPanel" name="jPanel1">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="99" red="0" type="rgb"/>
-        </Property>
-      </Properties>
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel1">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial Black" size="24" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Ajout d&apos;un VIP"/>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
+    <Component class="javax.swing.JSeparator" name="jSeparator1">
+    </Component>
   </SubComponents>
 </Form>

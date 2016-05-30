@@ -8,7 +8,6 @@ import javax.swing.table.AbstractTableModel;
 import metier.Vip;
 
 public class ModeleJTableAddMariage extends AbstractTableModel {
-
     // les conteneur de données
     private List<Vip> leConteneurAddMariage;
     // le titre des champs des conteneur
@@ -17,7 +16,7 @@ public class ModeleJTableAddMariage extends AbstractTableModel {
     private DaoVip leDaoVip;
 
     public ModeleJTableAddMariage(DaoVip leDaoVip) {
-
+        
         this.leConteneurAddMariage = new ArrayList<Vip>();
         this.titre = new String[]{"Numéro", "Nom", "Prenom", "Civilite", "Date de Naissance", "Lieu de Naissance", "Role", "Statut", "Pays"};
         // l'objet DAO utilisé
@@ -33,8 +32,8 @@ public class ModeleJTableAddMariage extends AbstractTableModel {
     public int getColumnCount() {
         return titre.length;
     }
-
-    public Vip getVip(int ligne) {
+    
+    public Vip getVip(int ligne){
         Vip vip = leConteneurAddMariage.get(ligne);
         return vip;
     }
@@ -65,14 +64,7 @@ public class ModeleJTableAddMariage extends AbstractTableModel {
                     return "Acteur/Réalisateur";
             }
         } else if (column == 7) {
-            switch (vip.getCodeStatut()) {
-                case 0:
-                    return "Célibataire";
-                case 1:
-                    return "En couple";
-                default:
-                    return "Divorcé";
-            }
+            return vip.getCodeStatut();
         } else {
             return vip.getNomPays();
         }
@@ -82,17 +74,17 @@ public class ModeleJTableAddMariage extends AbstractTableModel {
     public String getColumnName(int column) {
         return titre[column];
     }
-
+    
     public void chargerLesVipAddMariage() throws SQLException {
         leDaoVip.lireLesVipCodeStatut(leConteneurAddMariage);
         fireTableDataChanged();  // notification de modification des données à la vue
     }
-
+    
     public void chargerLesVipAddMariage(String nom) throws SQLException {
         leDaoVip.lireLesVipCodeStatut(leConteneurAddMariage, nom);
         fireTableDataChanged();  // notification de modification des données à la vue
     }
-
+    
     public void cleanVip() {
         leConteneurAddMariage.clear();
     }
