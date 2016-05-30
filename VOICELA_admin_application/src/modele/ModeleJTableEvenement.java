@@ -7,7 +7,6 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import metier.Evenement;
 import metier.Vip;
-import modele.ModeleJTableVip;
 
 public class ModeleJTableEvenement extends AbstractTableModel {
     // les conteneur de données
@@ -35,11 +34,6 @@ public class ModeleJTableEvenement extends AbstractTableModel {
     @Override
     public int getColumnCount() {
         return titre.length;
-    }
-    
-    public Evenement getEvenement(int ligne){
-        Evenement evenement = leConteneurEvenement.get(ligne);
-        return evenement;
     }
 
     @Override
@@ -75,6 +69,11 @@ public class ModeleJTableEvenement extends AbstractTableModel {
         }
     }
     
+    public Evenement getEvenement(int ligne){
+        Evenement evenement = leConteneurEvenement.get(ligne);
+        return evenement;
+    }
+    
     public void insererEvenement(Evenement evenement) throws SQLException {
         leDaoEvenement.ajouterEvenement(evenement);
         leConteneurEvenement.add(evenement);
@@ -97,5 +96,7 @@ public class ModeleJTableEvenement extends AbstractTableModel {
 
     public void addDivorce(Evenement divorce) throws SQLException {
         leDaoEvenement.ajouterDivorce(divorce);
+        leConteneurEvenement.set(0, divorce);
+        this.fireTableDataChanged();
     }
 }
