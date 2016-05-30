@@ -33,7 +33,6 @@ public class FenetreSaisieVip extends javax.swing.JDialog {
         lblCivilite = new javax.swing.JLabel();
         btValid = new javax.swing.JButton();
         lblNom = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         lblDateNaiss = new javax.swing.JLabel();
         txDateNaiss = new javax.swing.JTextField();
         lblLieuNaiss = new javax.swing.JLabel();
@@ -43,14 +42,15 @@ public class FenetreSaisieVip extends javax.swing.JDialog {
         cbCivilite = new javax.swing.JComboBox<>();
         lblPays = new javax.swing.JLabel();
         txPays = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Saisie d'un employé");
 
-        lblPrenom.setText("Prénom VIP");
+        lblPrenom.setText("Prénom VIP :");
 
-        lblCivilite.setText("Civilité");
+        lblCivilite.setText("Civilité :");
 
         btValid.setText("Créer le VIP");
         btValid.addActionListener(new java.awt.event.ActionListener() {
@@ -59,11 +59,9 @@ public class FenetreSaisieVip extends javax.swing.JDialog {
             }
         });
 
-        lblNom.setText("Nom VIP");
+        lblNom.setText("Nom VIP :");
 
-        jLabel1.setText("Nouveau VIP");
-
-        lblDateNaiss.setText("Date naissance (dd/mm/yyyy)");
+        lblDateNaiss.setText("Date naissance (dd/mm/yyyy) :");
 
         txDateNaiss.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,9 +69,9 @@ public class FenetreSaisieVip extends javax.swing.JDialog {
             }
         });
 
-        lblLieuNaiss.setText("Lieu Naissance");
+        lblLieuNaiss.setText("Lieu Naissance :");
 
-        lblRole.setText("Role");
+        lblRole.setText("Role :");
 
         cbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acteur", "Réalisateur", "Acteur/Réalisateur" }));
 
@@ -84,61 +82,68 @@ public class FenetreSaisieVip extends javax.swing.JDialog {
             }
         });
 
-        lblPays.setText("Pays");
+        lblPays.setText("Pays :");
+
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Ajout d'un VIP");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNom, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                                .addComponent(txNom, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(lblCivilite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblDateNaiss, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblLieuNaiss, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(lblRole)
-                                    .addComponent(lblPays))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txDateNaiss)
-                                    .addComponent(txLieuNaiss)
-                                    .addComponent(cbRole, 0, 156, Short.MAX_VALUE)
-                                    .addComponent(cbCivilite, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txPays)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(btValid)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btValid))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblCivilite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblDateNaiss, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblLieuNaiss, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblRole)
+                            .addComponent(lblPays)
+                            .addComponent(lblPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNom, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txNom)
+                            .addComponent(txPrenom)
+                            .addComponent(txPays)
+                            .addComponent(cbRole, 0, 325, Short.MAX_VALUE)
+                            .addComponent(cbCivilite, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txLieuNaiss, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txDateNaiss))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txNom)
                     .addComponent(lblNom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -167,9 +172,9 @@ public class FenetreSaisieVip extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPays)
                     .addComponent(txPays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btValid)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -193,8 +198,6 @@ public class FenetreSaisieVip extends javax.swing.JDialog {
             String premiereLettre = prenom.substring(0, 1); //recup la premiere lettre
             premiereLettre = premiereLettre.toUpperCase();         // mise en maj
             restePrenom = restePrenom.toLowerCase();
-            System.out.println(premiereLettre);
-            System.out.println(restePrenom);
 
             vip.setPrenomVip(premiereLettre + restePrenom);
 
@@ -238,7 +241,12 @@ public class FenetreSaisieVip extends javax.swing.JDialog {
             if (txPays.getText().isEmpty()) {
                 throw new Exception("champ pays vide");
             }
-            vip.setNomPays(txPays.getText());
+            String pays = txPays.getText();
+            String restePays = pays.substring(1);   //chaine sans la premiere lettre
+            String premiereLettrePays = pays.substring(0, 1); //recup la premiere lettre
+            premiereLettrePays = premiereLettrePays.toUpperCase();         // mise en maj
+            restePays = restePays.toLowerCase();
+            vip.setNomPays(premiereLettrePays + restePays);
 
             etatSortie = true;
             this.dispose();
@@ -266,7 +274,7 @@ public class FenetreSaisieVip extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbCivilite;
     private javax.swing.JComboBox<String> cbRole;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCivilite;
     private javax.swing.JLabel lblDateNaiss;
     private javax.swing.JLabel lblLieuNaiss;

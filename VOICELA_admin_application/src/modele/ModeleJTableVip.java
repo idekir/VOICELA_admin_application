@@ -119,4 +119,8 @@ public class ModeleJTableVip extends AbstractTableModel {
     public void cleanVip() {
         leConteneur.clear();
     }
+
+    public int getNbVip() {
+        return leConteneur.size();
+    }
 }

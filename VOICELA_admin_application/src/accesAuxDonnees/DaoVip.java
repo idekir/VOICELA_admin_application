@@ -36,12 +36,15 @@ public class DaoVip {
         rset.close();
         pstmt.close();
     }
-    
+
     public void lireLesVip(List<Vip> lesVip, String nom) throws SQLException {
         nom = "%" + nom + "%";
-        String requete = "SELECT * FROM VIP WHERE nomVip LIKE ? AND ( codeStatut = 0 OR codeStatut = 2 )";
+        String requete = "SELECT * FROM VIP WHERE nomVip LIKE ? OR prenomVip LIKE ? OR lieuNaissance LIKE ? OR nomPays LIKE ?  ";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         pstmt.setString(1, nom);
+        pstmt.setString(2, nom);
+        pstmt.setString(3, nom);
+        pstmt.setString(4, nom);
 
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
@@ -109,14 +112,13 @@ public class DaoVip {
     }
 
     public void lireLesVipCodeStatut(List<Vip> leConteneurAddMariage, String nom) throws SQLException {
-        
+
         nom = "%" + nom + "%";
         String requete = "SELECT * FROM VIP WHERE nomVip LIKE ? AND ( codeStatut = 0 OR codeStatut = 2 )";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         pstmt.setString(1, nom);
 
         //System.out.println(pstmt.toString());
-
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
             int numVip = rset.getInt(1);
@@ -134,16 +136,57 @@ public class DaoVip {
         rset.close();
         pstmt.close();
     }
-    
-    public void ajouterPhotoVip(Vip vip, String filePath, Date datePhoto, String lieuPhoto) throws SQLException {
-        String requete = "INSERT INTO PHOTO (datePhoto, lieuPhoto, numeroSequentiel, numVip) VALUES (?, ?, ?, ?)";
+
+    public void ajouterPhotoVip(Vip vip, Date datePhoto, String lieuPhoto) throws SQLException {
+        String requete = "INSERT INTO PHOTO (datePhoto, lieuPhoto, numVip) VALUES (?, ?, ?)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
-        /*
         pstmt.setDate(1, datePhoto);
         pstmt.setString(2, lieuPhoto);
-        pstmt.setString(3, );
-        pstmt.setInt(4, vip.getNumVip());
-        */
+        pstmt.setInt(3, vip.getNumVip());
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+
+    public int getLastNumSeq() throws SQLException {
+        String requete = "SELECT LAST_INSERT_ID(numeroSequentiel) FROM PHOTO";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        int lastNumSeq = -1;
+
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            lastNumSeq = rset.getInt(1);
+        }
+        rset.close();
+        pstmt.close();
+        return lastNumSeq;
+    }
+
+    public boolean checkPays(String nomPays) throws SQLException {
+        String requete = "SELECT * FROM PAYS WHERE nomPays = ?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete,ResultSet.TYPE_SCROLL_INSENSITIVE);
+        pstmt.setString(1, nomPays);
+
+        int nbRset = 0;
+        ResultSet rset = pstmt.executeQuery();
+        if(rset != null){
+            rset.last();
+            nbRset = rset.getRow();
+        }
+        rset.close();
+        pstmt.close();
+        if(nbRset >=1){
+            return true;
+        }
+        return false;
+        
+    }
+
+    public void addPays(String nomPays) throws SQLException {
+        System.out.println("test addPays");
+        String requete = "INSERT INTO PAYS (nomPays) VALUES (?)";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setString(1, nomPays);
+        pstmt.executeUpdate();
         pstmt.close();
     }
 
