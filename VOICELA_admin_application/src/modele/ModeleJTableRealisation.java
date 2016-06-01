@@ -23,11 +23,11 @@ public class ModeleJTableRealisation extends AbstractTableModel {
     private DaoFilm leDaoFilm;
     private String[] titre;
 
-    public ModeleJTableRealisation(DaoFilm leDaoFilm, ModeleJTableVip leModeleVip) throws SQLException {
+    public ModeleJTableRealisation(DaoFilm leDaoFilm) throws SQLException {
         this.leConteneurRealisationAjout = new ArrayList<>();
         this.leModeleVip = leModeleVip;
         this.leDaoFilm = leDaoFilm;
-        this.titre = new String[]{"Numero VIP", "Nom VIP", "Prénom VIP"};
+        this.titre = new String[]{"Numero VIP", "Nom VIP", "Prénom VIP","Role"};
     }
 
     @Override
@@ -48,8 +48,10 @@ public class ModeleJTableRealisation extends AbstractTableModel {
             return vip.getNumVip();
         } else if (column == 1) {
             return vip.getNomVip();
-        } else {
+        } else if (column ==2 ){
             return vip.getPrenomVip();
+        }else{
+            return vip.getCodeRole();
         }
     }
 
@@ -57,4 +59,17 @@ public class ModeleJTableRealisation extends AbstractTableModel {
     public String getColumnName(int column) {
         return titre[column];
     }
+
+    public void realisateurPossibleFilm(int numVisa) throws SQLException {
+        leConteneurRealisationAjout.clear();
+        leDaoFilm.realisateurPossibleFilm(numVisa, leConteneurRealisationAjout);
+        fireTableDataChanged();
+    }
+
+    public void acteurPossibleFilm(int numVisa) throws SQLException {
+        leConteneurRealisationAjout.clear();
+        leDaoFilm.acteurPossibleFilm(numVisa, leConteneurRealisationAjout);
+        fireTableDataChanged();
+    }
+
 }

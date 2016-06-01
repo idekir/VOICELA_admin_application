@@ -1,17 +1,33 @@
 package ihm;
 
+import accesAuxDonnees.DaoFilm;
+import java.sql.SQLException;
+import java.util.List;
 import metier.Vip;
 import modele.ModeleJTableRealisation;
 
 public class FenetreSaisieRealisation extends javax.swing.JDialog {
+    
     private ModeleJTableRealisation leModeleRealisation;
     private boolean etatSortie;
+    private DaoFilm leDaoFilm;
 
-    FenetreSaisieRealisation(javax.swing.JDialog parent, int numVisa, boolean realisateur, Vip vip) {
+    FenetreSaisieRealisation(javax.swing.JDialog parent, int numVisa, boolean realisateur, Vip vip, DaoFilm leDaoFilm) throws SQLException {
         super(parent, true);
-        //this.leModeleRealisation = new ModeleJTableRealisation();
+        this.leDaoFilm = leDaoFilm;
+        this.leModeleRealisation = new ModeleJTableRealisation(leDaoFilm);
         etatSortie = false;
         initComponents();
+        try{
+            if(realisateur == true){
+                leModeleRealisation.realisateurPossibleFilm(numVisa);
+            }else{
+                leModeleRealisation.acteurPossibleFilm(numVisa);
+            }
+            
+        }catch (Exception e){
+            
+        }
     }
 
     /**
@@ -35,17 +51,7 @@ public class FenetreSaisieRealisation extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable1.setModel(leModeleRealisation);
         jScrollPane1.setViewportView(jTable1);
 
         jLabel2.setText("Recherche :");

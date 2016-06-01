@@ -106,18 +106,15 @@ public class ModeleJTableVip extends AbstractTableModel {
     }
 
     public void chargerLesVip() throws SQLException {
+        leConteneurVip.clear();
         leDaoVip.lireLesVip(leConteneurVip);
         fireTableDataChanged();  // notification de modification des données à la vue
     }
-    
-     public void chargerLesVip(String nom) throws SQLException {
-        leDaoVip.lireLesVip(leConteneurVip,nom);
-        fireTableDataChanged();  // notification de modification des données à la vue
-    }
-    
 
-    public void cleanVip() {
+    public void chargerLesVip(String nom) throws SQLException {
         leConteneurVip.clear();
+        leDaoVip.lireLesVip(leConteneurVip, nom);
+        fireTableDataChanged();  // notification de modification des données à la vue
     }
 
     public int getNbVip() {

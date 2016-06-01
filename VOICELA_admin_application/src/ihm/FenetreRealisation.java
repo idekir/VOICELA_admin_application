@@ -343,7 +343,7 @@ public class FenetreRealisation extends javax.swing.JDialog {
         try{
         boolean realisateur = true;
         Vip vip = new Vip();
-        FenetreSaisieRealisation laSaisieRealisation = new FenetreSaisieRealisation(this,film.getNumVisa(),realisateur, vip );
+        FenetreSaisieRealisation laSaisieRealisation = new FenetreSaisieRealisation(this,film.getNumVisa(),realisateur, vip,leDaoFilm );
         if(laSaisieRealisation.doModal() == true){
             leModeleFilm.ajouterRealisateur(film.getNumVisa(), vip.getNumVip());
         }

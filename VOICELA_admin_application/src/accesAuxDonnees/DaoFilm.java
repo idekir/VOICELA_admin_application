@@ -189,12 +189,38 @@ public class DaoFilm {
         pstmt.close();
     }
 
-    public void selectionnerRealisateurPossible(int numVisa) throws SQLException {
-        
+    public void realisateurPossibleFilm(int numVisa, List<Vip> leConteneurRealisationAjout) throws SQLException {
+        String requete = "SELECT numVip, nomVip, PrenomVip, codeRole FROM VIP WHERE codeRole = 2 OR codeRole = 3 AND VIP.numVip NOT IN (SELECT REALISE.numVip FROM REALISE WHERE REALISE.numVisa = ?)";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVisa);
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            int numVip = rset.getInt(1);
+            String nomVip = rset.getString(2);
+            String prenomVip = rset.getString(3);
+            int codeRole = rset.getInt(4);
+            Vip temp = new Vip(numVip, nomVip, prenomVip, codeRole);
+            leConteneurRealisationAjout.add(temp);
+        }
+        rset.close();
+        pstmt.close();
     }
 
-    public void selectionnerActeurPossible(int numVisa) {
-
+    public void acteurPossibleFilm(int numVisa, List<Vip> leConteneurRealisationAjout) throws SQLException {
+        String requete = "SELECT numVip, nomVip, PrenomVip, codeRole FROM VIP WHERE codeRole = 1 OR codeRole = 3 AND VIP.numVip NOT IN (SELECT REALISE.numVip FROM REALISE WHERE REALISE.numVisa = ?)";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVisa);
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            int numVip = rset.getInt(1);
+            String nomVip = rset.getString(2);
+            String prenomVip = rset.getString(3);
+            int codeRole = rset.getInt(4);
+            Vip temp = new Vip(numVip, nomVip, prenomVip, codeRole);
+            leConteneurRealisationAjout.add(temp);
+        }
+        rset.close();
+        pstmt.close();
     }
 
 }

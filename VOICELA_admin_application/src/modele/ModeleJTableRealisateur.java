@@ -18,7 +18,7 @@ public class ModeleJTableRealisateur extends AbstractTableModel {
         this.leConteneurRealisateur = new ArrayList<>();
         this.leModeleVip = leModeleVip;
         this.leDaoFilm = leDaoFilm;
-        this.titre = new String[]{"Numero VIP", "Nom VIP", "Prénom VIP"};
+        this.titre = new String[]{"Numero VIP", "Nom VIP", "Prénom VIP","Role"};
     }
 
     @Override
@@ -39,8 +39,10 @@ public class ModeleJTableRealisateur extends AbstractTableModel {
             return vip.getNumVip();
         } else if (column == 1) {
             return vip.getNomVip();
-        } else {
+        } else if (column ==2 ){
             return vip.getPrenomVip();
+        }else{
+            return vip.getCodeRole();
         }
     }
 
