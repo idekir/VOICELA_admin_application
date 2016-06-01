@@ -18,43 +18,49 @@ import modele.ModeleJTableVip;
 import modele.ModeleJTableAddMariage;
 import modele.ModeleJTableEvenement;
 import modele.ModeleJTableFilm;
+import modele.ModeleJTableGenreFilm;
 
 public class FenetreApplication extends javax.swing.JFrame {
 
-    //déclaration des modeles de table
+    private Connection laConnexion;
+    
+    private DaoVip leDaoVip;
+    private DaoEvenement leDaoEvenement;
+    private DaoFilm leDaoFilm;
+    
     private ModeleJTableVip leModeleVip;
     private ModeleJTableEvenement leModeleEvenement;
     private ModeleJTableAddMariage leModeleAddMariage;
     private ModeleJTableFilm leModeleFilm;
-    
-    //declaration connexion pour deconnexion a la fin de l'appli
-    private Connection laConnexion;
+    private ModeleJTableGenreFilm leModeleGenreFilm;
 
-    //déclaration des DAO
-    private DaoVip leDaoVip;
-    private DaoEvenement leDaoEvenement;
-    private DaoFilm leDaoFilm;
+    public FenetreApplication(DaoVip leDaoVip, DaoEvenement leDaoEvenement, DaoFilm leDaoFilm, Connection laConnexion) throws SQLException {
 
-    public FenetreApplication(DaoVip leDaoVip, DaoEvenement leDaoEvenement, DaoFilm leDaoFilm, Connection laConnexion) {
+        this.laConnexion = laConnexion;
 
         this.leDaoVip = leDaoVip;
         this.leDaoEvenement = leDaoEvenement;
         this.leDaoFilm = leDaoFilm;
-        
-        this.laConnexion = laConnexion;
 
         this.leModeleVip = new ModeleJTableVip(leDaoVip);
         this.leModeleEvenement = new ModeleJTableEvenement(leDaoEvenement, leModeleVip);
         this.leModeleAddMariage = new ModeleJTableAddMariage(leDaoVip);
-        this.leModeleFilm = new ModeleJTableFilm(leDaoFilm);
+        this.leModeleGenreFilm = new ModeleJTableGenreFilm(leDaoFilm);
+        this.leModeleFilm = new ModeleJTableFilm(leDaoFilm, leModeleGenreFilm);
+        
 
         initComponents();
 
         try {
+            leModeleGenreFilm.chargerGenre();
             leModeleVip.chargerLesVip();
             leModeleEvenement.chargerLesEvenement();
             leModeleFilm.chargerLesFilm();
-            jLabel2.setText("Nombre de VIP dans la base : " + Integer.toString(leModeleVip.getNbVip()));
+            
+            jLabel2.setText(Integer.toString(leModeleVip.getNbVip()) + " VIP dans la base");
+            jLabel6.setText(Integer.toString(leModeleEvenement.getNbEvenement()) + " Mariages dans la base");
+            jLabel7.setText(Integer.toString(leModeleFilm.getNbFilm()) + " Films dans la base");
+            
         } catch (Exception e) {
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -93,6 +99,7 @@ public class FenetreApplication extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -104,6 +111,7 @@ public class FenetreApplication extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jButton11 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -182,7 +190,8 @@ public class FenetreApplication extends javax.swing.JFrame {
             .addComponent(addVip)
         );
 
-        jLabel2.setText("nbVipBase");
+        jLabel2.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
+        jLabel2.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -284,6 +293,9 @@ public class FenetreApplication extends javax.swing.JFrame {
 
         jLabel4.setText("Recherche :");
 
+        jLabel6.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
+        jLabel6.setText("jLabel6");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -293,20 +305,19 @@ public class FenetreApplication extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton9)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jToggleButton1))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE))
+                        .addComponent(jButton9)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton1))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -325,7 +336,9 @@ public class FenetreApplication extends javax.swing.JFrame {
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jLabel6))
                 .addContainerGap())
         );
 
@@ -398,6 +411,9 @@ public class FenetreApplication extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
+        jLabel7.setText("jLabel7");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -405,6 +421,9 @@ public class FenetreApplication extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel7))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton10)
                         .addGap(18, 18, 18)
@@ -433,7 +452,9 @@ public class FenetreApplication extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 185, Short.MAX_VALUE)))
-                .addGap(40, 40, 40))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addGap(15, 15, 15))
         );
 
         jTabbedPane1.addTab("Affichage des Films", new javax.swing.ImageIcon("D:\\Drédré\\Desktop\\iconFilm.png"), jPanel3); // NOI18N
@@ -542,11 +563,12 @@ public class FenetreApplication extends javax.swing.JFrame {
             FenetreSaisieVip laSaisie = new FenetreSaisieVip(this, vip);
             if (laSaisie.doModal() == true) {
                 boolean testPays = leDaoVip.checkPays(vip.getNomPays());
-                if(testPays == false){
+                if (testPays == false) {
                     leDaoVip.addPays(vip.getNomPays());
                 }
                 leModeleVip.insererVip(vip);
                 leModeleVip.chargerLesVip();
+                jLabel2.setText(Integer.toString(leModeleVip.getNbVip()) + " VIP dans la base");
             }
         } catch (Exception e) {
             //System.out.println("Exception à l'insertion : " + e.getMessage());
@@ -563,6 +585,7 @@ public class FenetreApplication extends javax.swing.JFrame {
             if (comfirm == 0) {
                 leModeleVip.supprimerVip(ligne);
             }
+            jLabel2.setText(Integer.toString(leModeleVip.getNbVip()) + " VIP dans la base");
 
         } catch (Exception e) {
             System.out.println("Exception à la suppression : " + e.getMessage());
@@ -612,6 +635,7 @@ public class FenetreApplication extends javax.swing.JFrame {
             if (laSaisieMariage.doModal() == true) {
                 JOptionPane.showMessageDialog(null, "Mariage ajouté avec succès", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
+            jLabel6.setText(Integer.toString(leModeleEvenement.getNbEvenement()) + " Mariages dans la base");
         } catch (Exception ex) {
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -627,9 +651,10 @@ public class FenetreApplication extends javax.swing.JFrame {
         try {
             Film film = new Film();
             FenetreSaisieFilm laSaisieFilm = new FenetreSaisieFilm(this, film, leDaoFilm);
-            if(laSaisieFilm.doModal() == true){
+            if (laSaisieFilm.doModal() == true) {
                 leModeleFilm.ajouterFilm(film);
             }
+            jLabel7.setText(Integer.toString(leModeleFilm.getNbFilm()) + " Films dans la base");
         } catch (Exception e) {
             //System.out.println("Exception à l'ajout du film : " + e.getMessage());
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
@@ -639,8 +664,8 @@ public class FenetreApplication extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
         try {
-            FenetreSaisieGenre laVueGenre = new FenetreSaisieGenre(this, leDaoFilm);
-            
+            FenetreSaisieGenre laVueGenre = new FenetreSaisieGenre(this, leModeleGenreFilm);
+
         } catch (Exception e) {
             //System.out.println("Exception à l'ajout du film : " + e.getMessage());
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
@@ -650,8 +675,8 @@ public class FenetreApplication extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         try {
-            FenetreRealisation laVueRealisation = new FenetreRealisation(this);
-            
+            FenetreRealisation laVueRealisation = new FenetreRealisation(this, leModeleFilm, leModeleGenreFilm, leDaoFilm, leModeleVip);
+
         } catch (Exception e) {
             //System.out.println("Exception à l'ajout du film : " + e.getMessage());
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
@@ -668,7 +693,7 @@ public class FenetreApplication extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             leModeleEvenement.chargerLesEvenement();
         } catch (SQLException ex) {
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, ex);
@@ -712,6 +737,8 @@ public class FenetreApplication extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

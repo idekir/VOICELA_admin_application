@@ -56,6 +56,17 @@ public class Vip {
         this.nomPays = nomPays;
     }
 
+    public Vip(int numVip, String nomVip, String prenomVip) {
+        
+    }
+
+    public Vip(int numVip, String nomVip, String prenomVip, int codeRole) {
+        this.numVip = numVip;
+        this.nomVip = nomVip;
+        this.prenomVip = prenomVip;
+        this.codeRole = codeRole;
+    }
+
     public int getNumVip() {
         return numVip;
     }

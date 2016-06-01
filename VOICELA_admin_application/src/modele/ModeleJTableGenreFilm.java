@@ -5,18 +5,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import metier.Genre;
 
 public class ModeleJTableGenreFilm extends AbstractTableModel {
 
-    private List<String[]> leConteneurGenre;
+    private List<Genre> leConteneurGenre;
     private String[] titre;
     private DaoFilm leDaoFilm;
 
     public ModeleJTableGenreFilm(DaoFilm leDaoFilm) {
 
         this.leConteneurGenre = new ArrayList<>();
-        this.titre = new String[]{"Numéro genre", "Libellé genre"};
         this.leDaoFilm = leDaoFilm;
+        this.titre = new String[]{"Numéro genre", "Libellé genre"};
+        
     }
 
     @Override
@@ -31,11 +33,11 @@ public class ModeleJTableGenreFilm extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int row, int column) {
-        String[] genre = leConteneurGenre.get(row);
+        Genre genre = leConteneurGenre.get(row);
         if (column == 0) {
-            return genre[0];
+            return genre.getNumGenre();
         } else {
-            return genre[1];
+            return genre.getNomGenre();
         }
     }
 
@@ -55,13 +57,24 @@ public class ModeleJTableGenreFilm extends AbstractTableModel {
         chargerGenre();
     }
 
-    public String[] getStringGenre(int ligne) {
+    public Genre getGenre(int ligne) {
         return leConteneurGenre.get(ligne);
     }
 
     public void supprimerGenre(int ligne) throws SQLException {
-        String[] stringGenre = leConteneurGenre.get(ligne);
-        leDaoFilm.supprimerGenre(stringGenre);
+        Genre genre = leConteneurGenre.get(ligne);
+        leDaoFilm.supprimerGenre(genre);
         chargerGenre();
+    }
+    
+    public String getNomGenre(int numGenre) {
+        leConteneurGenre.contains(numGenre);
+        for (int i = 0; i < leConteneurGenre.size(); i++) {
+            Genre temp = leConteneurGenre.get(i);
+            if(temp.getNumGenre()==numGenre){
+                return temp.getNomGenre();
+            }
+        }
+        return "";
     }
 }

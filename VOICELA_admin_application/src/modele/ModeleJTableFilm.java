@@ -6,21 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import metier.Film;
-import metier.Genre;
 
 public class ModeleJTableFilm extends AbstractTableModel {
 
     private List<Film> leConteneurFilm;
-    private List<Genre> leConteneurGenre;
+    private ModeleJTableGenreFilm leModeleGenre;
     private String[] titre;
     private DaoFilm leDaoFilm;
-    
 
-    public ModeleJTableFilm(DaoFilm leDaoFilm) throws SQLException {
+    public ModeleJTableFilm(DaoFilm leDaoFilm, ModeleJTableGenreFilm leModeleGenre) throws SQLException {
         this.leDaoFilm = leDaoFilm;
+        this.leModeleGenre = leModeleGenre;
         this.leConteneurFilm = new ArrayList<>();
-        this.leConteneurGenre = new ArrayList<>();
-        leDaoFilm.chargerGenre(leConteneurGenre);
         this.titre = new String[]{"Numéro visa", "Titre du film", "Année", "Genre"};
     }
 
@@ -45,10 +42,10 @@ public class ModeleJTableFilm extends AbstractTableModel {
         } else if (column == 2) {
             return film.getAnneeFilm();
         } else {
-            return leConteneurFilm.getNomGenre(film.getNumGenre());
+            return leModeleGenre.getNomGenre(film.getNumGenre());
         }
     }
-    
+
     @Override
     public String getColumnName(int column) {
         return titre[column];
@@ -59,7 +56,7 @@ public class ModeleJTableFilm extends AbstractTableModel {
         leDaoFilm.lireLesFilm(leConteneurFilm);
         fireTableDataChanged();
     }
-    
+
     public void ajouterFilm(Film film) throws SQLException {
         leDaoFilm.ajouterFilm(film);
         leConteneurFilm.add(film);
@@ -71,10 +68,19 @@ public class ModeleJTableFilm extends AbstractTableModel {
         leDaoFilm.lireLesFilm(leConteneurFilm, text);
         fireTableDataChanged();
     }
-    
-    public String getNomGenre(int numGenre){
-        leConteneurGenre.contains(numGenre);
-        return 0;
+
+    public int getNbFilm() {
+        return leConteneurFilm.size();
     }
+
+    public Film getFilm(int ligne) {
+        return leConteneurFilm.get(ligne);
+    }
+
+    public void ajouterRealisateur(int numVisa, int numVip) throws SQLException {
+        leDaoFilm.ajouterRealisateur(numVisa,numVip);
+    }
+
+    
 
 }

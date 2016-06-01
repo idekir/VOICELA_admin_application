@@ -9,6 +9,8 @@ import ihm.FenetreIdentification;
 import java.net.PasswordAuthentication;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -55,7 +57,11 @@ public class Appli {
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    new FenetreApplication(daoVip, daoEvenement, daoFilm, laConnexion).setVisible(true);
+                    try {
+                        new FenetreApplication(daoVip, daoEvenement, daoFilm, laConnexion).setVisible(true);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Appli.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             });
         } catch (SQLException ex) {

@@ -10,7 +10,7 @@ import metier.Vip;
 public class ModeleJTableVip extends AbstractTableModel {
 
     // les conteneur de données
-    private List<Vip> leConteneur;
+    private List<Vip> leConteneurVip;
     // le titre des champs des conteneur
     private String[] titre;
     // l'objet DAO pour mettre à jour le conteneur
@@ -18,7 +18,7 @@ public class ModeleJTableVip extends AbstractTableModel {
 
     public ModeleJTableVip(DaoVip leDaoVip) {
 
-        this.leConteneur = new ArrayList<>();
+        this.leConteneurVip = new ArrayList<>();
         this.titre = new String[]{"Numéro", "Nom", "Prenom", "Civilite", "Date de Naissance", "Lieu de Naissance", "Role", "Statut", "Pays"};
         // l'objet DAO utilisé
         this.leDaoVip = leDaoVip;
@@ -26,7 +26,7 @@ public class ModeleJTableVip extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return leConteneur.size();
+        return leConteneurVip.size();
     }
 
     @Override
@@ -35,15 +35,15 @@ public class ModeleJTableVip extends AbstractTableModel {
     }
 
     public Vip getVip(int ligne) {
-        Vip vip = leConteneur.get(ligne);
+        Vip vip = leConteneurVip.get(ligne);
         return vip;
     }
 
     public Vip getVipByNum(int numVip) {
-        int tailleConteneur = leConteneur.size();
+        int tailleConteneur = leConteneurVip.size();
         for (int i = 0; i < tailleConteneur; i++) {
-            if (leConteneur.get(i).getNumVip() == numVip) {
-                return leConteneur.get(i);
+            if (leConteneurVip.get(i).getNumVip() == numVip) {
+                return leConteneurVip.get(i);
             }
         }
         return null;
@@ -51,7 +51,7 @@ public class ModeleJTableVip extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int row, int column) {
-        Vip vip = leConteneur.get(row);
+        Vip vip = leConteneurVip.get(row);
         if (column == 0) {
             return vip.getNumVip();
         } else if (column == 1) {
@@ -94,33 +94,33 @@ public class ModeleJTableVip extends AbstractTableModel {
 
     public void insererVip(Vip vip) throws SQLException {
         leDaoVip.ajouterVip(vip);
-        leConteneur.add(vip);
+        leConteneurVip.add(vip);
         this.fireTableDataChanged();
     }
 
     public void supprimerVip(int ligne) throws SQLException {
         int numVip = (int) getValueAt(ligne, 0);
         leDaoVip.supprimerVip(numVip);
-        leConteneur.remove(ligne);
+        leConteneurVip.remove(ligne);
         this.fireTableDataChanged();
     }
 
     public void chargerLesVip() throws SQLException {
-        leDaoVip.lireLesVip(leConteneur);
+        leDaoVip.lireLesVip(leConteneurVip);
         fireTableDataChanged();  // notification de modification des données à la vue
     }
     
      public void chargerLesVip(String nom) throws SQLException {
-        leDaoVip.lireLesVip(leConteneur,nom);
+        leDaoVip.lireLesVip(leConteneurVip,nom);
         fireTableDataChanged();  // notification de modification des données à la vue
     }
     
 
     public void cleanVip() {
-        leConteneur.clear();
+        leConteneurVip.clear();
     }
 
     public int getNbVip() {
-        return leConteneur.size();
+        return leConteneurVip.size();
     }
 }

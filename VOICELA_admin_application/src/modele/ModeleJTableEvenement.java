@@ -106,4 +106,8 @@ public class ModeleJTableEvenement extends AbstractTableModel {
         leDaoEvenement.lireLesEvenement(leConteneurEvenement, text);
         fireTableDataChanged();
     }
+
+    public int getNbEvenement() {
+        return leConteneurEvenement.size();
+    }
 }

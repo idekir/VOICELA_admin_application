@@ -4,6 +4,7 @@ import accesAuxDonnees.DaoFilm;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import metier.Genre;
 import modele.ModeleJTableGenreFilm;
 
 public class FenetreSaisieGenre extends javax.swing.JDialog {
@@ -11,15 +12,14 @@ public class FenetreSaisieGenre extends javax.swing.JDialog {
     private DaoFilm leDaoFilm;
     private ModeleJTableGenreFilm leModeleGenre;
 
-    public FenetreSaisieGenre(java.awt.Frame parent, DaoFilm leDaoFilm) {
+    public FenetreSaisieGenre(java.awt.Frame parent, ModeleJTableGenreFilm leModeleGenre) {
         super(parent, true);
         this.leDaoFilm = leDaoFilm;
-        this.leModeleGenre = new ModeleJTableGenreFilm(leDaoFilm);
+        this.leModeleGenre = leModeleGenre;
         initComponents();
 
         try {
             leModeleGenre.chargerGenre();
-            leModeleGenre.toString();
         } catch (Exception e) {
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -124,8 +124,8 @@ public class FenetreSaisieGenre extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             int ligne = jTable1.getSelectedRow();
-            String[] genre = leModeleGenre.getStringGenre(ligne);
-            int comfirm = JOptionPane.showConfirmDialog(this, "Comfirmer suppression du genre : " + genre[1] + " ? ", "Avertissement", JOptionPane.YES_NO_OPTION);
+            Genre genre = leModeleGenre.getGenre(ligne);
+            int comfirm = JOptionPane.showConfirmDialog(this, "Comfirmer suppression du genre : " + genre.getNomGenre() + " ? ", "Avertissement", JOptionPane.YES_NO_OPTION);
             if (comfirm == 0) {
                 leModeleGenre.supprimerGenre(ligne);
             }
