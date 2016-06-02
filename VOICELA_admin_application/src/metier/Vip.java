@@ -143,5 +143,17 @@ public class Vip {
     public String toString() {
         return "Vip("+numVip+","+nomVip+","+prenomVip+","+civilite+","+dateNaissance+","+lieuNaissance+","+codeRole+","+codeStatut+","+nomPays;
     }
+
+    public void setVip(Vip vip) {
+        this.numVip = vip.numVip;
+        this.nomVip = vip.nomVip;
+        this.prenomVip = vip.prenomVip;
+        this.civilite = vip.civilite;
+        this.dateNaissance = vip.dateNaissance;
+        this.lieuNaissance = vip.lieuNaissance;
+        this.codeRole = vip.codeRole;
+        this.codeStatut = vip.codeStatut;
+        this.nomPays = vip.nomPays;
+    }
     
 }

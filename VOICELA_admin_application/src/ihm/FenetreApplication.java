@@ -23,11 +23,11 @@ import modele.ModeleJTableGenreFilm;
 public class FenetreApplication extends javax.swing.JFrame {
 
     private Connection laConnexion;
-    
+
     private DaoVip leDaoVip;
     private DaoEvenement leDaoEvenement;
     private DaoFilm leDaoFilm;
-    
+
     private ModeleJTableVip leModeleVip;
     private ModeleJTableEvenement leModeleEvenement;
     private ModeleJTableAddMariage leModeleAddMariage;
@@ -47,7 +47,6 @@ public class FenetreApplication extends javax.swing.JFrame {
         this.leModeleAddMariage = new ModeleJTableAddMariage(leDaoVip);
         this.leModeleGenreFilm = new ModeleJTableGenreFilm(leDaoFilm);
         this.leModeleFilm = new ModeleJTableFilm(leDaoFilm, leModeleGenreFilm);
-        
 
         initComponents();
 
@@ -56,11 +55,11 @@ public class FenetreApplication extends javax.swing.JFrame {
             leModeleVip.chargerLesVip();
             leModeleEvenement.chargerLesEvenement();
             leModeleFilm.chargerLesFilm();
-            
+
             jLabel2.setText(Integer.toString(leModeleVip.getNbVip()) + " VIP dans la base");
             jLabel6.setText(Integer.toString(leModeleEvenement.getNbEvenement()) + " Mariages dans la base");
             jLabel7.setText(Integer.toString(leModeleFilm.getNbFilm()) + " Films dans la base");
-            
+
         } catch (Exception e) {
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -612,7 +611,6 @@ public class FenetreApplication extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             leModeleVip.chargerLesVip(txRecherche.getText());
-
         } catch (SQLException ex) {
             Logger.getLogger(FenetreSaisieMariage.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -665,7 +663,6 @@ public class FenetreApplication extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             FenetreSaisieGenre laVueGenre = new FenetreSaisieGenre(this, leModeleGenreFilm);
-
         } catch (Exception e) {
             //System.out.println("Exception à l'ajout du film : " + e.getMessage());
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
@@ -675,8 +672,7 @@ public class FenetreApplication extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         try {
-            FenetreRealisation laVueRealisation = new FenetreRealisation(this, leModeleFilm, leModeleGenreFilm, leDaoFilm, leModeleVip);
-
+            FenetreRealisation laVueRealisation = new FenetreRealisation(this, leModeleFilm, leModeleGenreFilm, leDaoFilm);
         } catch (Exception e) {
             //System.out.println("Exception à l'ajout du film : " + e.getMessage());
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);

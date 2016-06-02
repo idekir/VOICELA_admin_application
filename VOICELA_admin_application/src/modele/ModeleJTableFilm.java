@@ -81,6 +81,18 @@ public class ModeleJTableFilm extends AbstractTableModel {
         leDaoFilm.ajouterRealisateur(numVisa,numVip);
     }
 
+    public void ajouterActeur(int numVisa, int numVip) throws SQLException {
+        leDaoFilm.ajouterActeur(numVisa,numVip);
+    }
+
+    public void supprimerRealisateur(int numVip, int numVisa) throws SQLException {
+        leDaoFilm.supprimerRealisateur(numVisa,numVip);
+    }
+
+    public void supprimerActeur(int numVip, int numVisa) throws SQLException {
+        leDaoFilm.supprimerActeur(numVisa,numVip);
+    }
+
     
 
 }

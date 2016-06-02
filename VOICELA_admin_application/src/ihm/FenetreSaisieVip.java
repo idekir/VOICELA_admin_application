@@ -187,7 +187,7 @@ public class FenetreSaisieVip extends javax.swing.JDialog {
             if (txNom.getText().isEmpty()) {
                 throw new Exception("champ prenom vide");
             }
-            vip.setNomVip(txNom.getText().toUpperCase());
+            
 
             //prenom
             if (txPrenom.getText().isEmpty()) {
@@ -198,7 +198,8 @@ public class FenetreSaisieVip extends javax.swing.JDialog {
             String premiereLettre = prenom.substring(0, 1); //recup la premiere lettre
             premiereLettre = premiereLettre.toUpperCase();         // mise en maj
             restePrenom = restePrenom.toLowerCase();
-
+            
+            vip.setNomVip(txNom.getText().toUpperCase());
             vip.setPrenomVip(premiereLettre + restePrenom);
 
             //civilite

@@ -72,4 +72,10 @@ public class ModeleJTableRealisation extends AbstractTableModel {
         fireTableDataChanged();
     }
 
+    public Vip getVip(int ligne) {
+        Vip vip = leConteneurRealisationAjout.get(ligne);
+        System.out.println(vip.getNumVip());
+        return vip;
+    }
+
 }

@@ -9,18 +9,14 @@ import metier.Vip;
 
 public class ModeleJTableVip extends AbstractTableModel {
 
-    // les conteneur de données
     private List<Vip> leConteneurVip;
-    // le titre des champs des conteneur
     private String[] titre;
-    // l'objet DAO pour mettre à jour le conteneur
     private DaoVip leDaoVip;
 
     public ModeleJTableVip(DaoVip leDaoVip) {
 
         this.leConteneurVip = new ArrayList<>();
         this.titre = new String[]{"Numéro", "Nom", "Prenom", "Civilite", "Date de Naissance", "Lieu de Naissance", "Role", "Statut", "Pays"};
-        // l'objet DAO utilisé
         this.leDaoVip = leDaoVip;
     }
 

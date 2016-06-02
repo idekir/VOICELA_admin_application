@@ -2,18 +2,22 @@ package ihm;
 
 import accesAuxDonnees.DaoFilm;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import metier.Vip;
 import modele.ModeleJTableRealisation;
 
 public class FenetreSaisieRealisation extends javax.swing.JDialog {
     
+    private Vip vip;
     private ModeleJTableRealisation leModeleRealisation;
     private boolean etatSortie;
     private DaoFilm leDaoFilm;
+    
 
     FenetreSaisieRealisation(javax.swing.JDialog parent, int numVisa, boolean realisateur, Vip vip, DaoFilm leDaoFilm) throws SQLException {
         super(parent, true);
+        this.vip = vip;
         this.leDaoFilm = leDaoFilm;
         this.leModeleRealisation = new ModeleJTableRealisation(leDaoFilm);
         etatSortie = false;
@@ -24,9 +28,8 @@ public class FenetreSaisieRealisation extends javax.swing.JDialog {
             }else{
                 leModeleRealisation.acteurPossibleFilm(numVisa);
             }
-            
         }catch (Exception e){
-            
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -61,6 +64,11 @@ public class FenetreSaisieRealisation extends javax.swing.JDialog {
         jButton2.setText("Reinitialiser");
 
         jButton3.setText("Ajouter");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -124,6 +132,24 @@ public class FenetreSaisieRealisation extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (jTable1.getSelectedRow() == -1) {
+                throw new Exception("Aucune ligne VIP selectionnée");
+            }
+            int ligne = jTable1.getSelectedRow();
+            vip.setVip(leModeleRealisation.getVip(ligne));
+            System.out.println(vip.getNumVip());
+            
+            etatSortie = true;
+            this.dispose();
+
+        } catch (Exception e) {
+            System.out.println("Exception à l'insertion : " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

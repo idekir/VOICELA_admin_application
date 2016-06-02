@@ -10,27 +10,24 @@ import modele.ModeleJTableFilm;
 import modele.ModeleJTableGenreFilm;
 import modele.ModeleJTableActeur;
 import modele.ModeleJTableRealisateur;
-import modele.ModeleJTableVip;
 
 public class FenetreRealisation extends javax.swing.JDialog {
-    
+
     private ModeleJTableFilm leModeleFilm;
     private ModeleJTableGenreFilm leModeleGenre;
     private ModeleJTableActeur leModeleActeur;
     private ModeleJTableRealisateur leModeleRealisateur;
-    private ModeleJTableVip leModeleVip;
     private DaoFilm leDaoFilm;
     private Film film;
 
-    public FenetreRealisation(java.awt.Frame parent, ModeleJTableFilm leModeleFilm, ModeleJTableGenreFilm leModeleGenre, DaoFilm leDaoFilm, ModeleJTableVip leModeleVip) throws SQLException {
+    public FenetreRealisation(java.awt.Frame parent, ModeleJTableFilm leModeleFilm, ModeleJTableGenreFilm leModeleGenre, DaoFilm leDaoFilm) throws SQLException {
         super(parent, true);
         this.leDaoFilm = leDaoFilm;
         this.leModeleFilm = leModeleFilm;
         this.leModeleGenre = leModeleGenre;
-        this.leModeleVip = leModeleVip;
-        this.leModeleRealisateur = new ModeleJTableRealisateur(leDaoFilm, leModeleVip);
-        this.leModeleActeur = new ModeleJTableActeur(leDaoFilm, leModeleVip);
-        
+        this.leModeleRealisateur = new ModeleJTableRealisateur(leDaoFilm);
+        this.leModeleActeur = new ModeleJTableActeur(leDaoFilm);
+
         initComponents();
         this.setVisible(true);
     }
@@ -71,10 +68,10 @@ public class FenetreRealisation extends javax.swing.JDialog {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -186,21 +183,31 @@ public class FenetreRealisation extends javax.swing.JDialog {
 
         jLabel10.setText("Acteur(s)");
 
-        jButton8.setText("Supprimer Acteur");
-
-        jButton9.setText("Supprimer Réalisateur");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Ajouter acteur");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-
-        jButton2.setText("Ajouter acteur");
 
         jButton3.setText("Ajouter réalisateur");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Supprimer réalisateur");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setText("Supprimer acteur");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
             }
         });
 
@@ -226,24 +233,26 @@ public class FenetreRealisation extends javax.swing.JDialog {
                     .addComponent(jSeparator1)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton4))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jButton9))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(37, 37, 37)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
                                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(150, 150, 150)
-                                .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton8)))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -279,7 +288,7 @@ public class FenetreRealisation extends javax.swing.JDialog {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton9)
+                    .addComponent(jButton4)
                     .addComponent(jButton8))
                 .addContainerGap())
         );
@@ -310,59 +319,101 @@ public class FenetreRealisation extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
-
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
         try {
             if (jTable3.getSelectedRow() == -1) {
-                throw new Exception("Aucune ligne VIP selectionnée");
+                throw new Exception("Aucune ligne Film selectionnée");
             }
             int ligne = jTable3.getSelectedRow();
             film = leModeleFilm.getFilm(ligne);
             jTextField2.setText(Integer.toString(film.getNumVisa()));
             jTextField3.setText(film.getTitreFilm());
             jTextField4.setText(Integer.toString(film.getAnneeFilm()));
-            System.out.println(film.getNumGenre());
             jTextField5.setText(leModeleGenre.getNomGenre(film.getNumGenre()));
-            
+
             leModeleActeur.chargerActeur(film.getNumVisa());
             leModeleRealisateur.chargerRealisateur(film.getNumVisa());
-            
 
         } catch (Exception e) {
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
-        
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        try{
-        boolean realisateur = true;
-        Vip vip = new Vip();
-        FenetreSaisieRealisation laSaisieRealisation = new FenetreSaisieRealisation(this,film.getNumVisa(),realisateur, vip,leDaoFilm );
-        if(laSaisieRealisation.doModal() == true){
-            leModeleFilm.ajouterRealisateur(film.getNumVisa(), vip.getNumVip());
+        try {
+            boolean realisateur = true;
+            Vip vip = new Vip();
+            FenetreSaisieRealisation laSaisieRealisation = new FenetreSaisieRealisation(this, film.getNumVisa(), realisateur, vip, leDaoFilm);
+            if (laSaisieRealisation.doModal() == true) {
+                leModeleFilm.ajouterRealisateur(film.getNumVisa(), vip.getNumVip());
+                leModeleRealisateur.chargerRealisateur(film.getNumVisa());
+            }
+        } catch (Exception e) {
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
-        }catch (Exception e){
-            
-        }
-        
+
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            boolean realisateur = false;
+            Vip vip = new Vip();
+            FenetreSaisieRealisation laSaisieRealisation = new FenetreSaisieRealisation(this, film.getNumVisa(), realisateur, vip, leDaoFilm);
+            if (laSaisieRealisation.doModal() == true) {
+                System.out.println(vip.getNumVip());
+                System.out.println(film.getNumVisa());
+                leModeleFilm.ajouterActeur(film.getNumVisa(), vip.getNumVip());
+                leModeleActeur.chargerActeur(film.getNumVisa());
+            }
+        } catch (Exception e) {
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        try{
+            if (jTable4.getSelectedRow() == -1) {
+                throw new Exception("Aucune ligne VIP selectionnée");
+            }
+            int ligne = jTable4.getSelectedRow();
+            Vip vip = leModeleRealisateur.getVip(ligne);
+            leModeleFilm.supprimerRealisateur(vip.getNumVip(), film.getNumVisa());
+            leModeleRealisateur.chargerRealisateur(film.getNumVisa());
+        }catch (Exception e){
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        try{
+            if (jTable5.getSelectedRow() == -1) {
+                throw new Exception("Aucune ligne VIP selectionnée");
+            }
+            int ligne = jTable5.getSelectedRow();
+            Vip vip = leModeleActeur.getVip(ligne);
+            leModeleFilm.supprimerActeur(vip.getNumVip(), film.getNumVisa());
+            leModeleActeur.chargerActeur(film.getNumVisa());
+        }catch (Exception e){
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel4;

@@ -1,11 +1,9 @@
 package accesAuxDonnees;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 import metier.Film;
@@ -123,20 +121,6 @@ public class DaoFilm {
         pstmt.close();
     }
 
-    public void chargerGenre(List<Genre> leConteneurGenre) throws SQLException {
-        String requete = "SELECT * from GENRE";
-        PreparedStatement pstmt = connexion.prepareStatement(requete);
-        ResultSet rset = pstmt.executeQuery();
-        while (rset.next()) {
-            Genre genre = new Genre();
-            genre.setNumGenre(rset.getInt(2));
-            genre.setNomGenre(rset.getString(1));
-            leConteneurGenre.add(genre);
-        }
-        rset.close();
-        pstmt.close();
-    }
-
     public void lireActeurFilm(int numVisa, List<Vip> lesActeurs) throws SQLException {
         String requete = "SELECT numVip, nomVip, PrenomVip, codeRole FROM VIP WHERE VIP.numVip IN (SELECT CASTING.numVip FROM CASTING WHERE CASTING.numVisa = ?)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
@@ -172,25 +156,25 @@ public class DaoFilm {
     }
 
     public void ajouterRealisateur(int numVisa, int numVip) throws SQLException {
-        String requete = "INSERT INTO REALISE (numVisa, numVip) VALUES (?, ?)";
+        String requete = "INSERT INTO REALISE (numVip, numVisa) VALUES (?, ?)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
-        pstmt.setInt(1, numVisa);
-        pstmt.setInt(2, numVip);
+        pstmt.setInt(1, numVip);
+        pstmt.setInt(2, numVisa);
         pstmt.executeUpdate();
         pstmt.close();
     }
 
     public void ajouterActeur(int numVisa, int numVip) throws SQLException {
-        String requete = "INSERT INTO CASTING (numVisa, numVip) VALUES (?, ?)";
+        String requete = "INSERT INTO CASTING (numVip, numVisa) VALUES (?, ?)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
-        pstmt.setInt(1, numVisa);
-        pstmt.setInt(2, numVip);
+        pstmt.setInt(1, numVip);
+        pstmt.setInt(2, numVisa);
         pstmt.executeUpdate();
         pstmt.close();
     }
 
     public void realisateurPossibleFilm(int numVisa, List<Vip> leConteneurRealisationAjout) throws SQLException {
-        String requete = "SELECT numVip, nomVip, PrenomVip, codeRole FROM VIP WHERE codeRole = 2 OR codeRole = 3 AND VIP.numVip NOT IN (SELECT REALISE.numVip FROM REALISE WHERE REALISE.numVisa = ?)";
+        String requete = "SELECT VIP.numVip, VIP.nomVip, VIP.PrenomVip, VIP.codeRole FROM VIP WHERE VIP.numVip NOT IN (SELECT REALISE.numVip FROM REALISE WHERE REALISE.numVisa = ?) AND (VIP.codeRole = 2 OR VIP.codeRole = 3)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         pstmt.setInt(1, numVisa);
         ResultSet rset = pstmt.executeQuery();
@@ -207,7 +191,7 @@ public class DaoFilm {
     }
 
     public void acteurPossibleFilm(int numVisa, List<Vip> leConteneurRealisationAjout) throws SQLException {
-        String requete = "SELECT numVip, nomVip, PrenomVip, codeRole FROM VIP WHERE codeRole = 1 OR codeRole = 3 AND VIP.numVip NOT IN (SELECT REALISE.numVip FROM REALISE WHERE REALISE.numVisa = ?)";
+        String requete = "SELECT VIP.numVip, VIP.nomVip, VIP.PrenomVip, VIP.codeRole FROM VIP WHERE VIP.numVip NOT IN (SELECT CASTING.numVip FROM CASTING WHERE CASTING.numVisa = ?) AND (VIP.codeRole = 1 OR VIP.codeRole = 3)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         pstmt.setInt(1, numVisa);
         ResultSet rset = pstmt.executeQuery();
@@ -220,6 +204,24 @@ public class DaoFilm {
             leConteneurRealisationAjout.add(temp);
         }
         rset.close();
+        pstmt.close();
+    }
+
+    public void supprimerActeur(int numVisa, int numVip) throws SQLException {
+        String requete = "DELETE FROM CASTING WHERE numVip = ? AND numVisa = ? ";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVip);
+        pstmt.setInt(2, numVisa);
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+
+    public void supprimerRealisateur(int numVisa, int numVip) throws SQLException {
+        String requete = "DELETE FROM REALISE WHERE numVip = ? AND numVisa = ? ";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVip);
+        pstmt.setInt(2, numVisa);
+        pstmt.executeUpdate();
         pstmt.close();
     }
 

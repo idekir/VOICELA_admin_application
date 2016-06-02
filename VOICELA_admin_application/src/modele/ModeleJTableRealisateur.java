@@ -10,13 +10,11 @@ import metier.Vip;
 public class ModeleJTableRealisateur extends AbstractTableModel {
 
     private List<Vip> leConteneurRealisateur;
-    private ModeleJTableVip leModeleVip;
     private DaoFilm leDaoFilm;
     private String[] titre;
 
-    public ModeleJTableRealisateur(DaoFilm leDaoFilm, ModeleJTableVip leModeleVip) throws SQLException {
+    public ModeleJTableRealisateur(DaoFilm leDaoFilm) throws SQLException {
         this.leConteneurRealisateur = new ArrayList<>();
-        this.leModeleVip = leModeleVip;
         this.leDaoFilm = leDaoFilm;
         this.titre = new String[]{"Numero VIP", "Nom VIP", "Prénom VIP","Role"};
     }
@@ -55,5 +53,10 @@ public class ModeleJTableRealisateur extends AbstractTableModel {
         leConteneurRealisateur.clear();
         leDaoFilm.lireRealisateurFilm(numVisa, leConteneurRealisateur);
         fireTableDataChanged();
+    }
+
+    public Vip getVip(int ligne) {
+        Vip vip = leConteneurRealisateur.get(ligne);
+        return vip;
     }
 }

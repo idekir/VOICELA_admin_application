@@ -128,6 +128,7 @@ public class FenetreSaisieMariage extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTable3.setModel(leModeleAddMariage);
+        jTable3.setSelectionBackground(new java.awt.Color(0, 153, 153));
         jScrollPane3.setViewportView(jTable3);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -139,6 +140,7 @@ public class FenetreSaisieMariage extends javax.swing.JDialog {
         jLabel3.setText("VIP numéro 2");
 
         jTable4.setModel(leModeleAddMariage);
+        jTable4.setSelectionBackground(new java.awt.Color(0, 153, 153));
         jScrollPane4.setViewportView(jTable4);
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
@@ -425,7 +427,6 @@ public class FenetreSaisieMariage extends javax.swing.JDialog {
                 throw new Exception("Aucune ligne selectionnée");
             }
             vip1 = leModeleAddMariage.getVip(ligne);
-            System.out.println(vip1);
             jTextField5.setText(vip1.getNomVip());
             jTextField6.setText(vip1.getPrenomVip());
             jTextField7.setText(Integer.toString(vip1.getNumVip()));
@@ -443,7 +444,6 @@ public class FenetreSaisieMariage extends javax.swing.JDialog {
                 throw new Exception("Aucune ligne selectionnée");
             }
             vip2 = leModeleAddMariage.getVip(ligne);
-            System.out.println(vip2);
             jTextField8.setText(vip2.getNomVip());
             jTextField9.setText(vip2.getPrenomVip());
             jTextField10.setText(Integer.toString(vip2.getNumVip()));
@@ -457,8 +457,6 @@ public class FenetreSaisieMariage extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             Evenement evenement = new Evenement();
-            System.out.println(vip1);
-            System.out.println(vip2);
             if (vip1.getNumVip() == vip2.getNumVip()) {
                 throw new Exception("On ne se marie pas avec soi-même !");
             }
