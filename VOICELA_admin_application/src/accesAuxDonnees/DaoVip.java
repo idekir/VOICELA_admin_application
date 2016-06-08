@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import metier.Photo;
 import metier.Vip;
 
 public class DaoVip {
@@ -186,6 +187,42 @@ public class DaoVip {
         String requete = "INSERT INTO PAYS (nomPays) VALUES (?)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         pstmt.setString(1, nomPays);
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+
+    public void lirePhotoVip(int numVip, List<Photo> leConteneurPhoto) throws SQLException {
+        String requete = "SELECT numeroSequentiel, datePhoto, lieuPhoto FROM PHOTO WHERE numVip = ?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVip);
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            int numeroSequentiel = rset.getInt(1);
+            Date datePhoto = rset.getDate(2);
+            String lieuPhoto = rset.getString(3);
+            Photo temp = new Photo(numeroSequentiel, numVip, datePhoto, lieuPhoto);
+            leConteneurPhoto.add(temp);
+        }
+        rset.close();
+        pstmt.close();
+    }
+
+    public void supprimerPhoto(Vip vip, int fileName) throws SQLException {
+        String requete = "DELETE FROM PHOTO WHERE numVip = ? AND numeroSequentiel = ?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, vip.getNumVip());
+        pstmt.setInt(2, fileName);
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+
+    public void setPhotoPrincipale(Vip vip, Photo photo) throws SQLException {
+        String requete = "UPDATE VIP SET photoD = ? WHERE numVip = ? ";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+
+        pstmt.setInt(1, photo.getNumeroSequentiel());
+        pstmt.setInt(2, vip.getNumVip());
+
         pstmt.executeUpdate();
         pstmt.close();
     }

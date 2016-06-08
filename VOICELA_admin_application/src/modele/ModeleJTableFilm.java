@@ -93,6 +93,26 @@ public class ModeleJTableFilm extends AbstractTableModel {
         leDaoFilm.supprimerActeur(numVisa,numVip);
     }
 
+    public int getNumAffiche(int numVisa) throws SQLException {
+        return leDaoFilm.getNumAffiche(numVisa);
+    }
+
+    public void ajouterAfficheFilm(int numVisa) throws SQLException {
+        leDaoFilm.ajouterAffiche(numVisa);
+    }
+
+    public int getLastNumSeqAffiche() throws SQLException {
+        return leDaoFilm.getLastNumSeqAffiche();
+    }
+
+    public void supprimerAffiche(int numVisa) throws SQLException {
+        leDaoFilm.supprimerAffiche(numVisa);
+    }
+
+    public void supprimerFilm(int numVisa) throws SQLException {
+        leDaoFilm.supprimerFilm(numVisa);
+    }
+
     
 
 }

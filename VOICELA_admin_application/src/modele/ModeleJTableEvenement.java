@@ -110,4 +110,8 @@ public class ModeleJTableEvenement extends AbstractTableModel {
     public int getNbEvenement() {
         return leConteneurEvenement.size();
     }
+
+    public void supprimerEvenement(Evenement evenement) {
+        leDaoEvenement.supprimerEvenement(evenement);
+    }
 }

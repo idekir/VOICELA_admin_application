@@ -99,6 +99,7 @@ public class FenetreApplication extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jButton12 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -111,6 +112,8 @@ public class FenetreApplication extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jButton11 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -123,15 +126,18 @@ public class FenetreApplication extends javax.swing.JFrame {
             }
         });
 
-        jTabbedPane1.setForeground(new java.awt.Color(0, 102, 102));
+        jTabbedPane1.setForeground(new java.awt.Color(204, 0, 51));
         jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTabbedPane1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jTabbedPane1.setOpaque(true);
         jTabbedPane1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTabbedPane1FocusGained(evt);
             }
         });
 
+        jButtonRefresh.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jButtonRefresh.setForeground(new java.awt.Color(204, 0, 51));
         jButtonRefresh.setText("Réinitialiser");
         jButtonRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,8 +145,11 @@ public class FenetreApplication extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Recherche :");
 
+        jButton1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(204, 0, 51));
         jButton1.setText("Rechercher");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,6 +162,8 @@ public class FenetreApplication extends javax.swing.JFrame {
         laTable.setSelectionBackground(new java.awt.Color(0, 153, 153));
         jScrollPane1.setViewportView(laTable);
 
+        addPhotoVip.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        addPhotoVip.setForeground(new java.awt.Color(204, 0, 51));
         addPhotoVip.setText("Gestion photo VIP");
         addPhotoVip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,6 +171,8 @@ public class FenetreApplication extends javax.swing.JFrame {
             }
         });
 
+        deleteVip.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        deleteVip.setForeground(new java.awt.Color(204, 0, 51));
         deleteVip.setText("Supprimer VIP");
         deleteVip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,10 +180,10 @@ public class FenetreApplication extends javax.swing.JFrame {
             }
         });
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fonctions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 12), new java.awt.Color(0, 153, 153))); // NOI18N
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fonctions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 12), new java.awt.Color(204, 0, 51))); // NOI18N
 
         addVip.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        addVip.setForeground(new java.awt.Color(0, 102, 102));
+        addVip.setForeground(new java.awt.Color(204, 0, 51));
         addVip.setText("Ajouter VIP");
         addVip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,7 +226,7 @@ public class FenetreApplication extends javax.swing.JFrame {
                         .addComponent(txRecherche)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -247,6 +260,8 @@ public class FenetreApplication extends javax.swing.JFrame {
         jTable1.setSelectionBackground(new java.awt.Color(0, 153, 153));
         jScrollPane2.setViewportView(jTable1);
 
+        jToggleButton1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jToggleButton1.setForeground(new java.awt.Color(204, 0, 51));
         jToggleButton1.setText("Rechercher");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,6 +269,8 @@ public class FenetreApplication extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(204, 0, 51));
         jButton2.setText("Ajouter divorce");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,10 +278,11 @@ public class FenetreApplication extends javax.swing.JFrame {
             }
         });
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fonctions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 12), new java.awt.Color(0, 153, 153))); // NOI18N
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fonctions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 12), new java.awt.Color(204, 0, 51))); // NOI18N
+        jPanel8.setForeground(new java.awt.Color(204, 0, 51));
 
         jButton4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(0, 102, 102));
+        jButton4.setForeground(new java.awt.Color(204, 0, 51));
         jButton4.setText("Ajouter Mariage");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -283,6 +301,8 @@ public class FenetreApplication extends javax.swing.JFrame {
             .addComponent(jButton4)
         );
 
+        jButton9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(204, 0, 51));
         jButton9.setText("Réinitialiser");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,10 +310,20 @@ public class FenetreApplication extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Recherche :");
 
         jLabel6.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
         jLabel6.setText("jLabel6");
+
+        jButton12.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jButton12.setForeground(new java.awt.Color(204, 0, 51));
+        jButton12.setText("Supprimer mariage");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -304,6 +334,8 @@ public class FenetreApplication extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -314,7 +346,7 @@ public class FenetreApplication extends javax.swing.JFrame {
                         .addComponent(jTextField1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jToggleButton1))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -337,7 +369,8 @@ public class FenetreApplication extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jButton12))
                 .addContainerGap())
         );
 
@@ -347,10 +380,10 @@ public class FenetreApplication extends javax.swing.JFrame {
         jTable2.setSelectionBackground(new java.awt.Color(0, 153, 153));
         jScrollPane3.setViewportView(jTable2);
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fonctions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 12), new java.awt.Color(0, 153, 153))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fonctions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 12), new java.awt.Color(204, 0, 51))); // NOI18N
 
         jButton7.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(0, 102, 102));
+        jButton7.setForeground(new java.awt.Color(204, 0, 51));
         jButton7.setText("Gérer les genres");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -359,7 +392,7 @@ public class FenetreApplication extends javax.swing.JFrame {
         });
 
         jButton6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(0, 102, 102));
+        jButton6.setForeground(new java.awt.Color(204, 0, 51));
         jButton6.setText("Gérer les réalisations");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -368,7 +401,7 @@ public class FenetreApplication extends javax.swing.JFrame {
         });
 
         jButton5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(0, 102, 102));
+        jButton5.setForeground(new java.awt.Color(204, 0, 51));
         jButton5.setText("Ajouter un Film");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -394,6 +427,8 @@ public class FenetreApplication extends javax.swing.JFrame {
                 .addComponent(jButton7))
         );
 
+        jButton10.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jButton10.setForeground(new java.awt.Color(204, 0, 51));
         jButton10.setText("Réinitialiser");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -401,8 +436,11 @@ public class FenetreApplication extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Recherche :");
 
+        jButton11.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(204, 0, 51));
         jButton11.setText("Rechercher");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -413,6 +451,24 @@ public class FenetreApplication extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
         jLabel7.setText("jLabel7");
 
+        jButton3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(204, 0, 51));
+        jButton3.setText("Gérer Affiche");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(204, 0, 51));
+        jButton8.setText("Supprimer film");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -421,7 +477,10 @@ public class FenetreApplication extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel7))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton10)
@@ -431,7 +490,7 @@ public class FenetreApplication extends javax.swing.JFrame {
                         .addComponent(jTextField3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton11))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -447,13 +506,16 @@ public class FenetreApplication extends javax.swing.JFrame {
                     .addComponent(jButton11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 185, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
-                .addGap(15, 15, 15))
+                        .addGap(0, 186, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jButton3)
+                    .addComponent(jButton8))
+                .addGap(10, 10, 10))
         );
 
         jTabbedPane1.addTab("Affichage des Films", new javax.swing.ImageIcon("D:\\Drédré\\Desktop\\iconFilm.png"), jPanel3); // NOI18N
@@ -462,7 +524,7 @@ public class FenetreApplication extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 895, Short.MAX_VALUE)
+            .addGap(0, 1004, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -471,7 +533,7 @@ public class FenetreApplication extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("A propos", new javax.swing.ImageIcon("D:\\Drédré\\Desktop\\iconInfo.png"), jPanel6); // NOI18N
 
-        jPanel4.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel4.setBackground(new java.awt.Color(204, 0, 51));
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -484,7 +546,7 @@ public class FenetreApplication extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -505,8 +567,8 @@ public class FenetreApplication extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1))
+                .addGap(0, 0, 0)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -599,6 +661,8 @@ public class FenetreApplication extends javax.swing.JFrame {
             }
             int ligne = laTable.getSelectedRow();
             Vip vip = leModeleVip.getVip(ligne);
+            
+            
 
             FenetreSaisiePhoto laSaisiePhoto = new FenetreSaisiePhoto(this, vip, leDaoVip);
 
@@ -612,8 +676,7 @@ public class FenetreApplication extends javax.swing.JFrame {
         try {
             leModeleVip.chargerLesVip(txRecherche.getText());
         } catch (SQLException ex) {
-            Logger.getLogger(FenetreSaisieMariage.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FenetreSaisieMariage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -714,6 +777,52 @@ public class FenetreApplication extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        try{
+            int ligne = jTable2.getSelectedRow();
+            Film film = leModeleFilm.getFilm(ligne);
+            
+            FenetreSaisieAffiche laSaisieAffiche = new FenetreSaisieAffiche(this, film, leModeleFilm);
+            
+        }catch (Exception e){
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        try{
+            int ligne = jTable2.getSelectedRow();
+            Film film = leModeleFilm.getFilm(ligne);
+            
+            int comfirm = JOptionPane.showConfirmDialog(this, "Comfirmer suppression du film  : " + film.getTitreFilm() + " ?", "Avertissement", JOptionPane.YES_NO_OPTION);
+            if (comfirm == 0) {
+                leModeleFilm.supprimerFilm(film.getNumVisa());
+                leModeleFilm.chargerLesFilm();
+            }
+        }catch (Exception e){
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        try{
+            int ligne = jTable1.getSelectedRow();
+            Evenement evenement = leModeleEvenement.getEvenement(ligne);
+            
+            int comfirm = JOptionPane.showConfirmDialog(this, "Comfirmer suppression du mariage ?", "Avertissement", JOptionPane.YES_NO_OPTION);
+            if (comfirm == 0) {
+                leModeleEvenement.supprimerEvenement(evenement);
+                leModeleEvenement.chargerLesEvenement();
+            }
+        }catch (Exception e){
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+    }//GEN-LAST:event_jButton12ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPhotoVip;
     private javax.swing.JButton addVip;
@@ -721,11 +830,14 @@ public class FenetreApplication extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonRefresh;
     private javax.swing.JLabel jLabel1;

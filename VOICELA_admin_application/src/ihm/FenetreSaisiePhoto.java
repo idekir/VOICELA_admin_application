@@ -1,8 +1,10 @@
 package ihm;
 
 import accesAuxDonnees.DaoVip;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -10,11 +12,13 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import metier.Photo;
 import metier.Vip;
+import modele.ModeleJTablePhoto;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPSClient;
 
@@ -24,18 +28,47 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
     private String fileChoosed = null;
     private String filePath = null;
     private DaoVip leDaoVip;
-    JProgressBar barre_progression;
+    private ModeleJTablePhoto leModelePhoto;
+    private FTPSClient ftp;
+    private Photo photo;
 
     public FenetreSaisiePhoto(java.awt.Frame parent, Vip vip, DaoVip leDaoVip) {
         super(parent, true);
         this.vip = vip;
         this.leDaoVip = leDaoVip;
+        leModelePhoto = new ModeleJTablePhoto(leDaoVip);
+        ftp = new FTPSClient();
 
         initComponents();
 
         txNomVip.setText(vip.getNomVip());
         txPrenomVip.setText(vip.getPrenomVip());
         txNumVip.setText(Integer.toString(vip.getNumVip()));
+
+        try {
+            leModelePhoto.chargerPhotoVip(vip.getNumVip());
+
+            //recuperation info connexion
+            FileInputStream fichier;
+            fichier = new FileInputStream("src/connexionFTP.properties");
+            Properties props = new Properties();
+            props.load(fichier);
+
+            ftp.connect("iutdoua-samba.univ-lyon1.fr", 990);
+            if (!ftp.login(props.getProperty("username"), props.getProperty("password"))) {
+                throw new Exception("Problème de login au serveur");
+            }
+            boolean testConnexion = ftp.sendNoOp();
+            if (testConnexion == false) {
+                throw new Exception("Echec de la connexion au serveur");
+            }
+            ftp.setFileType(FTP.BINARY_FILE_TYPE);
+            ftp.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+            ftp.enterLocalPassiveMode();
+
+        } catch (Exception e) {
+            Logger.getLogger(FenetreSaisieMariage.class.getName()).log(Level.SEVERE, null, e);
+        }
         this.setVisible(true);
     }
 
@@ -67,6 +100,17 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
         buttonUpload = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -187,7 +231,7 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
                             .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txDatePhoto)
+                            .addComponent(txDatePhoto, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
                             .addComponent(jTextField4)
                             .addComponent(txLieuPhoto, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -216,24 +260,98 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Photos du VIP"));
 
-        jLabel1.setText("jLabel1");
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jTable1.setModel(leModelePhoto);
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel5.setText("nbPhotoVip");
+
+        jButton2.setText("Afficher / Modifier photo");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Date Photo :");
+
+        jLabel7.setText("Lieu Photo :");
+
+        jButton3.setText("Valider modifications");
+
+        jButton4.setText("Supprimer photo");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Définir comme photo principale");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(195, 195, 195)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
-                .addGap(222, 222, 222))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(55, 55, 55)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jButton4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton3))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(22, 22, 22))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)))
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField1)
+                                    .addComponent(jTextField2)))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-                .addGap(56, 56, 56))
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(jButton5))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -247,8 +365,8 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -275,17 +393,15 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
         // TODO add your handling code here:
 
         JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG", "jpg", "jpeg");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
+            //System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
             fileChoosed = chooser.getSelectedFile().getName();
             filePath = chooser.getSelectedFile().getAbsolutePath();
         }
         jTextField4.setText(fileChoosed);
-
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void buttonUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUploadActionPerformed
@@ -312,34 +428,87 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
             String fileName = Integer.toString(fileNum);
 
             //ftp
-            FTPSClient ftp = new FTPSClient();
-            //recuperation info connexion
-            FileInputStream fichier;
-            fichier = new FileInputStream("src/connexionFTP.properties");
-            Properties props = new Properties();
-            props.load(fichier);
-
-            ftp.connect("iutdoua-samba.univ-lyon1.fr", 990);
-            if (!ftp.login(props.getProperty("username"), props.getProperty("password"))) {
-                throw new Exception("Problème de login au serveur");
-            }
-            boolean testConnexion = ftp.sendNoOp();
-            if (testConnexion == false) {
-                throw new Exception("Echec de la connexion au serveur");
-            }
-            ftp.setFileType(FTP.BINARY_FILE_TYPE);
-            ftp.enterLocalPassiveMode();
             InputStream input = new FileInputStream(new File(filePath));
-            ftp.storeFile("/public_html/VOICELA/assets/vipPhoto/" + fileName + ".jpg", input);
-            ftp.disconnect();
-            
-            JOptionPane.showMessageDialog(null, "Photo VIP ajoutée avec succès", "Information", JOptionPane.INFORMATION_MESSAGE);
 
+            try {
+                if (ftp.storeFile("/public_html/VOICELA/assets/images/VIP/" + fileName + ".jpeg", input)) {
+                    JOptionPane.showMessageDialog(null, "Photo VIP ajoutée avec succès", "Information", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    throw new Exception("storeFile a retourner false");
+                }
+            } catch (Exception e) {
+                leDaoVip.supprimerPhoto(vip, fileNum);
+                JOptionPane.showMessageDialog(null, "Problème à l'upload du fichier, Veuillez réessayer ! : " + e.getMessage(), "Avertissement", JOptionPane.INFORMATION_MESSAGE);
+            }
+            leModelePhoto.chargerPhotoVip(vip.getNumVip());
         } catch (Exception e) {
-            //JOptionPane.showMessageDialog(this, "Erreur à l'ajout de la photo : " + e.getMessage(), "Avertissement", JOptionPane.WARNING_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "Photo VIP ajoutée avec succès", "Information", JOptionPane.INFORMATION_MESSAGE);
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_buttonUploadActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (jTable1.getSelectedRow() == -1) {
+                throw new Exception("Aucune ligne VIP selectionnée");
+            }
+            int ligne = jTable1.getSelectedRow();
+            photo = leModelePhoto.getPhoto(ligne);
+            
+            jTextField1.setText(photo.getDatePhoto().toString());
+            jTextField2.setText(photo.getLieuPhoto());
+
+            //File laPhoto = new File();
+            String remoteFile = "/public_html/VOICELA/assets/images/VIP/" + photo.getNumeroSequentiel() + ".jpeg";
+            FileOutputStream outStream = new FileOutputStream("/temp.jpeg");
+
+            ftp.retrieveFile(remoteFile, outStream);
+            outStream.flush();
+            outStream.close();
+
+            ImageIcon image = new ImageIcon(new ImageIcon("/temp.jpeg").getImage().getScaledInstance(450, 367, Image.SCALE_DEFAULT));
+            jLabel1.setIcon(image);
+            
+            
+            
+        } catch (Exception e) {
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            boolean resultat = ftp.deleteFile("/public_html/VOICELA/assets/images/VIP/" + photo.getNumeroSequentiel() + ".jpeg");
+            if (resultat) {
+                leDaoVip.supprimerPhoto(vip, photo.getNumeroSequentiel());
+                System.out.println("Le Fichier a été supprimé");
+            } else {
+                System.out.println("Impossible de supprimer le fichier");
+            }
+            leModelePhoto.chargerPhotoVip(vip.getNumVip());
+            jLabel1.setIcon(null);
+            jTextField1.setText("");
+            jTextField2.setText("");
+            photo=null;
+
+            
+        } catch (Exception e) {
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        try {
+                leDaoVip.setPhotoPrincipale(vip,photo);
+        } catch (Exception e) {
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,6 +517,10 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonUpload;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -355,10 +528,17 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField txDatePhoto;
     private javax.swing.JTextField txLieuPhoto;

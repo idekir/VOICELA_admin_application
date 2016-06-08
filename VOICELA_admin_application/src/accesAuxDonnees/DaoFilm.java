@@ -225,4 +225,55 @@ public class DaoFilm {
         pstmt.close();
     }
 
+    public int getNumAffiche(int numVisa) throws SQLException {
+        String requete = "SELECT numeroSequentielAffiche FROM AFFICHE WHERE numVisa = ? ";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVisa);
+        ResultSet rset = pstmt.executeQuery();
+        int result = 0;
+        while (rset.next()) {
+            result = rset.getInt(1);
+        }
+        rset.close();
+        pstmt.close();
+        return result;
+    }
+
+    public void ajouterAffiche(int numVisa) throws SQLException {
+        String requete = "INSERT INTO AFFICHE (numVisa) VALUES (?)";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVisa);
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+
+    public int getLastNumSeqAffiche() throws SQLException {
+        String requete = "SELECT LAST_INSERT_ID(numeroSequentielAffiche) FROM AFFICHE";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        int lastNumSeq = -1;
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            lastNumSeq = rset.getInt(1);
+        }
+        rset.close();
+        pstmt.close();
+        return lastNumSeq;
+    }
+
+    public void supprimerAffiche(int numVisa) throws SQLException {
+        String requete = "DELETE FROM AFFICHE WHERE numVisa = ?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVisa);
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+
+    public void supprimerFilm(int numVisa) throws SQLException {
+        String requete = "DELETE FROM FILM WHERE FILM.numVisa = ?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVisa);
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+
 }

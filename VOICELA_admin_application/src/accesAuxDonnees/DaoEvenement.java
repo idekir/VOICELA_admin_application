@@ -84,4 +84,14 @@ public class DaoEvenement {
         rset.close();
         pstmt.close();
     }
+
+    public void supprimerEvenement(Evenement evenement) throws SQLException {
+        String requete = "DELETE FROM EVENEMENT WHERE EVENEMENT.dateMariage = ? AND EVENEMENT.numVip = ? AND EVENEMENT.numVipConjoint = ?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setDate(1, (Date) evenement.getDateMariage());
+        pstmt.setInt(2, evenement.getNumVip());
+        pstmt.setInt(3, evenement.getNumVipConjoint());
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
 }
