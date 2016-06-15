@@ -4,6 +4,7 @@ import accesAuxDonnees.DaoFilm;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTextPane;
 import javax.swing.table.AbstractTableModel;
 import metier.Film;
 
@@ -113,6 +114,17 @@ public class ModeleJTableFilm extends AbstractTableModel {
         leDaoFilm.supprimerFilm(numVisa);
     }
 
-    
+    public void chargerCommentaire(int numVisa, JTextPane jTextPane1) throws SQLException {
+        leDaoFilm.chargerCommentaire(numVisa, jTextPane1);
+    }
 
+    public void modifierCommentaire(int numVisa, String text) throws SQLException {
+        if(leDaoFilm.commentExist(numVisa)){
+           leDaoFilm.modifierCommentaire(numVisa, text); 
+        }else{
+            leDaoFilm.addComment(numVisa);
+            leDaoFilm.modifierCommentaire(numVisa, text);
+        }
+        
+    }
 }

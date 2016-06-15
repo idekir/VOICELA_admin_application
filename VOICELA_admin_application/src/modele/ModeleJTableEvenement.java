@@ -111,7 +111,11 @@ public class ModeleJTableEvenement extends AbstractTableModel {
         return leConteneurEvenement.size();
     }
 
-    public void supprimerEvenement(Evenement evenement) {
+    public void supprimerEvenement(Evenement evenement) throws SQLException {
         leDaoEvenement.supprimerEvenement(evenement);
+    }
+
+    public void supprimerEvenementVip(int numVip) throws SQLException {
+        leDaoEvenement.supprimerEvenementVip(numVip);
     }
 }

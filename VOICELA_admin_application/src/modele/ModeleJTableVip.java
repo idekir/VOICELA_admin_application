@@ -1,11 +1,14 @@
 package modele;
 
 import accesAuxDonnees.DaoVip;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTextPane;
 import javax.swing.table.AbstractTableModel;
 import metier.Vip;
+import org.apache.commons.net.ftp.FTPSClient;
 
 public class ModeleJTableVip extends AbstractTableModel {
 
@@ -115,5 +118,22 @@ public class ModeleJTableVip extends AbstractTableModel {
 
     public int getNbVip() {
         return leConteneurVip.size();
+    }
+
+    public void supprimerPhotoVip(Vip vip, FTPSClient ftp) throws SQLException, IOException {
+        leDaoVip.supprimerPhotoVip(vip,ftp);
+    }
+
+    public void chargerCommentaire(int numVip, JTextPane jTextPane1) throws SQLException {
+        leDaoVip.chargerCommentaire(numVip, jTextPane1);
+    }
+
+    public void modifierCommentaire(int numVip, String text) throws SQLException {
+        if(leDaoVip.commentExist(numVip)){
+            leDaoVip.modifierCommentaire(numVip, text);
+        }else{
+            leDaoVip.addComment(numVip);
+            leDaoVip.modifierCommentaire(numVip, text);
+        }
     }
 }

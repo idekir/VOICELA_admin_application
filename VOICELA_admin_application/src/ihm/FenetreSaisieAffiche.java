@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -26,11 +27,11 @@ public class FenetreSaisieAffiche extends javax.swing.JDialog {
     private String filePath = null;
     private int numAffiche;
 
-    public FenetreSaisieAffiche(java.awt.Frame parent, Film film, ModeleJTableFilm leModeleFilm) {
+    public FenetreSaisieAffiche(java.awt.Frame parent, Film film, ModeleJTableFilm leModeleFilm, FTPSClient ftp) {
         super(parent, true);
         this.film = film;
         this.leModeleFilm = leModeleFilm;
-        ftp = new FTPSClient();
+        this.ftp = ftp;
         initComponents();
         jTextField1.setText(Integer.toString(film.getNumVisa()));
         jTextField2.setText(film.getTitreFilm());
@@ -38,25 +39,27 @@ public class FenetreSaisieAffiche extends javax.swing.JDialog {
         jTextField4.setText(Integer.toString(film.getNumGenre()));
 
         try {
-            FileInputStream fichier;
-            fichier = new FileInputStream("src/connexionFTP.properties");
-            Properties props = new Properties();
-            props.load(fichier);
-
-            ftp.connect("iutdoua-samba.univ-lyon1.fr", 990);
-            if (!ftp.login(props.getProperty("username"), props.getProperty("password"))) {
-                throw new Exception("Problème de login au serveur");
-            }
-            boolean testConnexion = ftp.sendNoOp();
-            if (testConnexion == false) {
-                throw new Exception("Echec de la connexion au serveur");
-            }
-            ftp.setFileType(FTP.BINARY_FILE_TYPE);
-            ftp.setFileTransferMode(FTP.BINARY_FILE_TYPE);
-            ftp.enterLocalPassiveMode();
-
             numAffiche = leModeleFilm.getNumAffiche(film.getNumVisa());
             if (numAffiche != 0) {
+                //ftp connexion
+                FileInputStream fichier;
+                fichier = new FileInputStream("src/connexionFTP.properties");
+                Properties props = new Properties();
+                props.load(fichier);
+
+                ftp.connect("iutdoua-samba.univ-lyon1.fr", 990);
+                if (!ftp.login(props.getProperty("username"), props.getProperty("password"))) {
+                    throw new Exception("Problème de login au serveur");
+                }
+                boolean testConnexion = ftp.sendNoOp();
+                if (testConnexion == false) {
+                    throw new Exception("Echec de la connexion au serveur");
+                }
+                ftp.setFileType(FTP.BINARY_FILE_TYPE);
+                ftp.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+                ftp.enterLocalPassiveMode();
+
+                //ftp traitement
                 String remoteFile = "/public_html/VOICELA/assets/images/AFFICHE/" + numAffiche + ".jpeg";
                 FileOutputStream outStream = new FileOutputStream("/temp.jpeg");
 
@@ -66,12 +69,18 @@ public class FenetreSaisieAffiche extends javax.swing.JDialog {
 
                 ImageIcon image = new ImageIcon(new ImageIcon("/temp.jpeg").getImage().getScaledInstance(250, 350, Image.SCALE_DEFAULT));
                 jLabel6.setIcon(image);
+                ftp.disconnect();
             } else {
                 jLabel6.setText("Aucune affiche pour le moment");
             }
 
         } catch (Exception e) {
-
+            try {
+                ftp.disconnect();
+            } catch (IOException ex) {
+                Logger.getLogger(FenetreSaisieAffiche.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
         this.setVisible(true);
     }
@@ -98,11 +107,11 @@ public class FenetreSaisieAffiche extends javax.swing.JDialog {
         jTextField4 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        ButtonSelectionFichier = new javax.swing.JButton();
         jTextField5 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        ButtonUpload = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton3 = new javax.swing.JButton();
+        ButtonDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -197,26 +206,26 @@ public class FenetreSaisieAffiche extends javax.swing.JDialog {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Ajouter / Modifier / Supprimer affiche"));
 
-        jButton1.setText("Selectionner une photo");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ButtonSelectionFichier.setText("Selectionner une photo");
+        ButtonSelectionFichier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ButtonSelectionFichierActionPerformed(evt);
             }
         });
 
         jTextField5.setEditable(false);
 
-        jButton2.setText("Ajouter / Modifier");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        ButtonUpload.setText("Ajouter / Modifier");
+        ButtonUpload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                ButtonUploadActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Supprimer affiche");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        ButtonDelete.setText("Supprimer affiche");
+        ButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                ButtonDeleteActionPerformed(evt);
             }
         });
 
@@ -229,24 +238,24 @@ public class FenetreSaisieAffiche extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
                     .addComponent(jTextField5)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(ButtonUpload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ButtonSelectionFichier, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                    .addComponent(ButtonDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(ButtonSelectionFichier)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(ButtonUpload)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(ButtonDelete)
                 .addContainerGap())
         );
 
@@ -286,7 +295,7 @@ public class FenetreSaisieAffiche extends javax.swing.JDialog {
 
     }//GEN-LAST:event_jTextField3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ButtonSelectionFichierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSelectionFichierActionPerformed
         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG", "jpg", "jpeg");
@@ -298,15 +307,34 @@ public class FenetreSaisieAffiche extends javax.swing.JDialog {
             filePath = chooser.getSelectedFile().getAbsolutePath();
         }
         jTextField5.setText(fileChoosed);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ButtonSelectionFichierActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void ButtonUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUploadActionPerformed
         // TODO add your handling code here:
         try {
 
             leModeleFilm.ajouterAfficheFilm(film.getNumVisa());
             int fileNum = leModeleFilm.getLastNumSeqAffiche();
             String fileName = Integer.toString(fileNum);
+
+            //ftp connexion
+            FileInputStream fichier;
+            fichier = new FileInputStream("src/connexionFTP.properties");
+            Properties props = new Properties();
+            props.load(fichier);
+
+            ftp.connect("iutdoua-samba.univ-lyon1.fr", 990);
+            if (!ftp.login(props.getProperty("username"), props.getProperty("password"))) {
+                throw new Exception("Problème de login au serveur");
+            }
+            boolean testConnexion = ftp.sendNoOp();
+            if (testConnexion == false) {
+                throw new Exception("Echec de la connexion au serveur");
+            }
+            ftp.setFileType(FTP.BINARY_FILE_TYPE);
+            ftp.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+            ftp.enterLocalPassiveMode();
+
             //ftp
             InputStream input = new FileInputStream(new File(filePath));
 
@@ -330,16 +358,39 @@ public class FenetreSaisieAffiche extends javax.swing.JDialog {
 
             ImageIcon image = new ImageIcon(new ImageIcon("/temp.jpeg").getImage().getScaledInstance(250, 350, Image.SCALE_DEFAULT));
             jLabel6.setIcon(image);
+            ftp.disconnect();
 
         } catch (Exception e) {
-
+            try {
+                ftp.disconnect();
+            } catch (IOException ex) {
+                Logger.getLogger(FenetreSaisieAffiche.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_ButtonUploadActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
+            //ftp connexion
+            FileInputStream fichier;
+            fichier = new FileInputStream("src/connexionFTP.properties");
+            Properties props = new Properties();
+            props.load(fichier);
+
+            ftp.connect("iutdoua-samba.univ-lyon1.fr", 990);
+            if (!ftp.login(props.getProperty("username"), props.getProperty("password"))) {
+                throw new Exception("Problème de login au serveur");
+            }
+            boolean testConnexion = ftp.sendNoOp();
+            if (testConnexion == false) {
+                throw new Exception("Echec de la connexion au serveur");
+            }
+            ftp.setFileType(FTP.BINARY_FILE_TYPE);
+            ftp.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+            ftp.enterLocalPassiveMode();
 
             boolean resultat = ftp.deleteFile("/public_html/VOICELA/assets/images/AFFICHE/" + numAffiche + ".jpeg");
             if (resultat) {
@@ -350,18 +401,23 @@ public class FenetreSaisieAffiche extends javax.swing.JDialog {
             }
             jLabel6.setIcon(null);
             jLabel6.setText("Aucune affiche pour le moment");
+            ftp.disconnect();
 
-            
         } catch (Exception e) {
+            try {
+                ftp.disconnect();
+            } catch (IOException ex) {
+                Logger.getLogger(FenetreSaisieAffiche.class.getName()).log(Level.SEVERE, null, ex);
+            }
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_ButtonDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton ButtonDelete;
+    private javax.swing.JButton ButtonSelectionFichier;
+    private javax.swing.JButton ButtonUpload;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

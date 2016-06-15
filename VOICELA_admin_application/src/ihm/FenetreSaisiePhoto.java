@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -32,12 +33,12 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
     private FTPSClient ftp;
     private Photo photo;
 
-    public FenetreSaisiePhoto(java.awt.Frame parent, Vip vip, DaoVip leDaoVip) {
+    public FenetreSaisiePhoto(java.awt.Frame parent, Vip vip, DaoVip leDaoVip, FTPSClient ftp) {
         super(parent, true);
         this.vip = vip;
         this.leDaoVip = leDaoVip;
         leModelePhoto = new ModeleJTablePhoto(leDaoVip);
-        ftp = new FTPSClient();
+        this.ftp = ftp;
 
         initComponents();
 
@@ -47,24 +48,6 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
 
         try {
             leModelePhoto.chargerPhotoVip(vip.getNumVip());
-
-            //recuperation info connexion
-            FileInputStream fichier;
-            fichier = new FileInputStream("src/connexionFTP.properties");
-            Properties props = new Properties();
-            props.load(fichier);
-
-            ftp.connect("iutdoua-samba.univ-lyon1.fr", 990);
-            if (!ftp.login(props.getProperty("username"), props.getProperty("password"))) {
-                throw new Exception("Problème de login au serveur");
-            }
-            boolean testConnexion = ftp.sendNoOp();
-            if (testConnexion == false) {
-                throw new Exception("Echec de la connexion au serveur");
-            }
-            ftp.setFileType(FTP.BINARY_FILE_TYPE);
-            ftp.setFileTransferMode(FTP.BINARY_FILE_TYPE);
-            ftp.enterLocalPassiveMode();
 
         } catch (Exception e) {
             Logger.getLogger(FenetreSaisieMariage.class.getName()).log(Level.SEVERE, null, e);
@@ -108,13 +91,12 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(204, 0, 51));
 
         jLabel13.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
@@ -278,8 +260,6 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
 
         jLabel7.setText("Lieu Photo :");
 
-        jButton3.setText("Valider modifications");
-
         jButton4.setText("Supprimer photo");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -312,8 +292,7 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
                                 .addComponent(jButton4)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3))
+                                .addGap(147, 147, 147))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -348,7 +327,6 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
                 .addContainerGap())
@@ -427,12 +405,35 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
             int fileNum = leDaoVip.getLastNumSeq();
             String fileName = Integer.toString(fileNum);
 
-            //ftp
+            //ftp connexion
+            FileInputStream fichier;
+            fichier = new FileInputStream("src/connexionFTP.properties");
+            Properties props = new Properties();
+            props.load(fichier);
+
+            ftp.connect("iutdoua-samba.univ-lyon1.fr", 990);
+            if (!ftp.login(props.getProperty("username"), props.getProperty("password"))) {
+                throw new Exception("Problème de login au serveur");
+            }
+            boolean testConnexion = ftp.sendNoOp();
+            if (testConnexion == false) {
+                throw new Exception("Echec de la connexion au serveur");
+            }
+            ftp.setFileType(FTP.BINARY_FILE_TYPE);
+            ftp.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+            ftp.enterLocalPassiveMode();
+
+            //ftp traitement
             InputStream input = new FileInputStream(new File(filePath));
 
             try {
                 if (ftp.storeFile("/public_html/VOICELA/assets/images/VIP/" + fileName + ".jpeg", input)) {
+                    String remoteFile = "/public_html/VOICELA/assets/images/VIP/" + photo.getNumeroSequentiel() + ".jpeg";
+                    FileOutputStream outStream = new FileOutputStream("/temp.jpeg");
+
+                    ftp.retrieveFile(remoteFile, outStream);
                     JOptionPane.showMessageDialog(null, "Photo VIP ajoutée avec succès", "Information", JOptionPane.INFORMATION_MESSAGE);
+
                 } else {
                     throw new Exception("storeFile a retourner false");
                 }
@@ -441,7 +442,14 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Problème à l'upload du fichier, Veuillez réessayer ! : " + e.getMessage(), "Avertissement", JOptionPane.INFORMATION_MESSAGE);
             }
             leModelePhoto.chargerPhotoVip(vip.getNumVip());
+            ftp.disconnect();
+            
         } catch (Exception e) {
+            try {
+                ftp.disconnect();
+            } catch (IOException ex) {
+                Logger.getLogger(FenetreSaisiePhoto.class.getName()).log(Level.SEVERE, null, ex);
+            }
             //JOptionPane.showMessageDialog(null, "Photo VIP ajoutée avec succès", "Information", JOptionPane.INFORMATION_MESSAGE);
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -451,13 +459,31 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             if (jTable1.getSelectedRow() == -1) {
-                throw new Exception("Aucune ligne VIP selectionnée");
+                throw new Exception("Aucune ligne photo selectionnée");
             }
             int ligne = jTable1.getSelectedRow();
             photo = leModelePhoto.getPhoto(ligne);
-            
+
             jTextField1.setText(photo.getDatePhoto().toString());
             jTextField2.setText(photo.getLieuPhoto());
+            
+            //ftp connexion
+            FileInputStream fichier;
+            fichier = new FileInputStream("src/connexionFTP.properties");
+            Properties props = new Properties();
+            props.load(fichier);
+
+            ftp.connect("iutdoua-samba.univ-lyon1.fr", 990);
+            if (!ftp.login(props.getProperty("username"), props.getProperty("password"))) {
+                throw new Exception("Problème de login au serveur");
+            }
+            boolean testConnexion = ftp.sendNoOp();
+            if (testConnexion == false) {
+                throw new Exception("Echec de la connexion au serveur");
+            }
+            ftp.setFileType(FTP.BINARY_FILE_TYPE);
+            ftp.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+            ftp.enterLocalPassiveMode();
 
             //File laPhoto = new File();
             String remoteFile = "/public_html/VOICELA/assets/images/VIP/" + photo.getNumeroSequentiel() + ".jpeg";
@@ -469,10 +495,14 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
 
             ImageIcon image = new ImageIcon(new ImageIcon("/temp.jpeg").getImage().getScaledInstance(450, 367, Image.SCALE_DEFAULT));
             jLabel1.setIcon(image);
-            
-            
-            
+            ftp.disconnect();
+
         } catch (Exception e) {
+            try {
+                ftp.disconnect();
+            } catch (IOException ex) {
+                Logger.getLogger(FenetreSaisiePhoto.class.getName()).log(Level.SEVERE, null, ex);
+            }
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
 
@@ -481,6 +511,23 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         try {
+            //ftp connexion
+            FileInputStream fichier;
+            fichier = new FileInputStream("src/connexionFTP.properties");
+            Properties props = new Properties();
+            props.load(fichier);
+
+            ftp.connect("iutdoua-samba.univ-lyon1.fr", 990);
+            if (!ftp.login(props.getProperty("username"), props.getProperty("password"))) {
+                throw new Exception("Problème de login au serveur");
+            }
+            boolean testConnexion = ftp.sendNoOp();
+            if (testConnexion == false) {
+                throw new Exception("Echec de la connexion au serveur");
+            }
+            ftp.setFileType(FTP.BINARY_FILE_TYPE);
+            ftp.setFileTransferMode(FTP.BINARY_FILE_TYPE);
+            ftp.enterLocalPassiveMode();
 
             boolean resultat = ftp.deleteFile("/public_html/VOICELA/assets/images/VIP/" + photo.getNumeroSequentiel() + ".jpeg");
             if (resultat) {
@@ -493,10 +540,15 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
             jLabel1.setIcon(null);
             jTextField1.setText("");
             jTextField2.setText("");
-            photo=null;
+            photo = null;
+            ftp.disconnect();
 
-            
         } catch (Exception e) {
+            try {
+                ftp.disconnect();
+            } catch (IOException ex) {
+                Logger.getLogger(FenetreSaisiePhoto.class.getName()).log(Level.SEVERE, null, ex);
+            }
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -504,7 +556,7 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         try {
-                leDaoVip.setPhotoPrincipale(vip,photo);
+            leDaoVip.setPhotoPrincipale(vip, photo);
         } catch (Exception e) {
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -518,7 +570,6 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
     private javax.swing.JButton buttonUpload;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;

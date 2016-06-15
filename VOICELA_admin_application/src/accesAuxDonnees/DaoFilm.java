@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.JTextPane;
 import metier.Film;
 import metier.Genre;
 import metier.Vip;
@@ -33,7 +34,7 @@ public class DaoFilm {
         rset.close();
         pstmt.close();
     }
-    
+
     public void lireLesFilm(List<Film> leConteneurFilm, String text) throws SQLException {
         text = "%" + text + "%";
         String requete = "SELECT * FROM FILM WHERE titreFilm LIKE ? OR numVisa LIKE ? OR anneeFilm LIKE ?";
@@ -270,6 +271,55 @@ public class DaoFilm {
 
     public void supprimerFilm(int numVisa) throws SQLException {
         String requete = "DELETE FROM FILM WHERE FILM.numVisa = ?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVisa);
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+
+    public void chargerCommentaire(int numVisa, JTextPane jTextPane1) throws SQLException {
+        String requete = "SELECT texte FROM TEXTFILM WHERE numVisa = ?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVisa);
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            String commentaire = rset.getString(1);
+            jTextPane1.setText(commentaire);
+        }
+        rset.close();
+        pstmt.close();
+    }
+
+    public void modifierCommentaire(int numVisa, String text) throws SQLException {
+        String requete = "UPDATE TEXTFILM SET texte = ? WHERE numVisa = ? ";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+
+        pstmt.setString(1, text);
+        pstmt.setInt(2, numVisa);
+
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+
+    public boolean commentExist(int numVisa) throws SQLException {
+        String requete = "SELECT COUNT(*) FROM TEXTFILM WHERE numVisa = ?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVisa);
+        ResultSet rset = pstmt.executeQuery();
+        int resultat = 0;
+        while (rset.next()) {
+            resultat = rset.getInt(1);
+        }
+        rset.close();
+        pstmt.close();
+        if (resultat > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public void addComment(int numVisa) throws SQLException {
+        String requete = "INSERT INTO TEXTFILM (numVisa) VALUES (?)";
         PreparedStatement pstmt = connexion.prepareStatement(requete);
         pstmt.setInt(1, numVisa);
         pstmt.executeUpdate();

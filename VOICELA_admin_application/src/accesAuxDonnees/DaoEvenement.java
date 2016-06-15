@@ -94,4 +94,13 @@ public class DaoEvenement {
         pstmt.executeUpdate();
         pstmt.close();
     }
+
+    public void supprimerEvenementVip(int numVip) throws SQLException {
+        String requete = "DELETE FROM EVENEMENT WHERE EVENEMENT.numVip = ? OR EVENEMENT.numVipConjoint = ?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVip);
+        pstmt.setInt(2, numVip);
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
 }

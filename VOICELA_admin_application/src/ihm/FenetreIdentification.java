@@ -23,7 +23,7 @@ public class FenetreIdentification extends javax.swing.JDialog {
         lbPasswd = new javax.swing.JLabel();
         txUser = new javax.swing.JTextField();
         txPasswd = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        ButtonConnect = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -40,10 +40,10 @@ public class FenetreIdentification extends javax.swing.JDialog {
 
         lbPasswd.setText("Password :");
 
-        jButton1.setText("Connexion");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ButtonConnect.setText("Connexion");
+        ButtonConnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ButtonConnectActionPerformed(evt);
             }
         });
 
@@ -90,7 +90,7 @@ public class FenetreIdentification extends javax.swing.JDialog {
                 .addGap(49, 49, 49))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(ButtonConnect)
                 .addGap(156, 156, 156))
         );
         layout.setVerticalGroup(
@@ -106,17 +106,17 @@ public class FenetreIdentification extends javax.swing.JDialog {
                     .addComponent(lbPasswd)
                     .addComponent(txPasswd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(ButtonConnect)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ButtonConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonConnectActionPerformed
         // TODO add your handling code here:
          this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ButtonConnectActionPerformed
 
     private void Fermeture(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_Fermeture
         // TODO add your handling code here:
@@ -125,7 +125,7 @@ public class FenetreIdentification extends javax.swing.JDialog {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton ButtonConnect;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbPasswd;

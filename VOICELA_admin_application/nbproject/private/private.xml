@@ -5,7 +5,6 @@
         <group>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/modele/ModeleJTableVip.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/modele/ModeleJTableAddMariage.java</file>
-            <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/ihm/FenetreSaisieComVip.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/application/Appli.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/modele/ModeleJTableFilm.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/modele/ModeleJTableRealisation.java</file>
@@ -13,11 +12,11 @@
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/modele/ModeleJTablePhoto.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/accesAuxDonnees/DaoFilm.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/ihm/FenetreSaisieRealisation.java</file>
+            <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/accesAuxDonnees/SourceMySql.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/ihm/FenetreSaisieGenre.java</file>
-            <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/ihm/FenetreSaisieComFilm.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/metier/Film.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/modele/ModeleJTableRealisateur.java</file>
-            <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/accesAuxDonnees/SourceFTP.java</file>
+            <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/ihm/FenetreSaisieTextFilm.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/metier/Genre.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/ihm/FenetreApplication.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/modele/ModeleJTableEvenement.java</file>
@@ -33,6 +32,7 @@
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/accesAuxDonnees/DaoVip.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/ihm/FenetreSaisieFilm.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/ihm/FenetreSaisieVip.java</file>
+            <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/ihm/FenetreSaisieTextVip.java</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/connexion.properties</file>
             <file>file:/D:/NetBeans/VOICELA_admin_application/VOICELA_admin_application/VOICELA_admin_application/src/ihm/FenetreIdentification.java</file>
         </group>

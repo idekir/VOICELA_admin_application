@@ -1,13 +1,16 @@
 package accesAuxDonnees;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JTextPane;
 import metier.Photo;
 import metier.Vip;
+import org.apache.commons.net.ftp.FTPSClient;
 
 public class DaoVip {
 
@@ -223,6 +226,68 @@ public class DaoVip {
         pstmt.setInt(1, photo.getNumeroSequentiel());
         pstmt.setInt(2, vip.getNumVip());
 
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+
+    public void supprimerPhotoVip(Vip vip, FTPSClient ftp) throws SQLException, IOException {
+        String requete = "SELECT numeroSequentiel FROM PHOTO WHERE numVip = ?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, vip.getNumVip());
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            int numeroSequentiel = rset.getInt(1);
+            ftp.deleteFile("/public_html/VOICELA/assets/images/VIP/" + numeroSequentiel + ".jpeg");
+        }
+        rset.close();
+        pstmt.close();
+    }
+
+    public void chargerCommentaire(int numVip, JTextPane jTextPane1) throws SQLException {
+        String requete = "SELECT texte FROM TEXTVIP WHERE numVip = ?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVip);
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            String commentaire = rset.getString(1);
+            jTextPane1.setText(commentaire);
+        }
+        rset.close();
+        pstmt.close();
+    }
+
+    public void modifierCommentaire(int numVip, String text) throws SQLException {
+        String requete = "UPDATE TEXTVIP SET texte = ? WHERE numVip = ? ";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+
+        pstmt.setString(1, text);
+        pstmt.setInt(2, numVip);
+
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+
+    public boolean commentExist(int numVip) throws SQLException {
+        String requete = "SELECT COUNT(*) FROM TEXTVIP WHERE numVip = ?";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVip);
+        ResultSet rset = pstmt.executeQuery();
+        int resultat = 0;
+        while (rset.next()) {
+            resultat = rset.getInt(1);
+        }
+        rset.close();
+        pstmt.close();
+        if (resultat > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public void addComment(int numVip) throws SQLException {
+        String requete = "INSERT INTO TEXTVIP(numVip) VALUES (?)";
+        PreparedStatement pstmt = connexion.prepareStatement(requete);
+        pstmt.setInt(1, numVip);
         pstmt.executeUpdate();
         pstmt.close();
     }

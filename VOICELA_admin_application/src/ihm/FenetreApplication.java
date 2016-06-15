@@ -19,10 +19,13 @@ import modele.ModeleJTableAddMariage;
 import modele.ModeleJTableEvenement;
 import modele.ModeleJTableFilm;
 import modele.ModeleJTableGenreFilm;
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPSClient;
 
 public class FenetreApplication extends javax.swing.JFrame {
 
     private Connection laConnexion;
+    private FTPSClient ftp;
 
     private DaoVip leDaoVip;
     private DaoEvenement leDaoEvenement;
@@ -30,13 +33,13 @@ public class FenetreApplication extends javax.swing.JFrame {
 
     private ModeleJTableVip leModeleVip;
     private ModeleJTableEvenement leModeleEvenement;
-    private ModeleJTableAddMariage leModeleAddMariage;
     private ModeleJTableFilm leModeleFilm;
     private ModeleJTableGenreFilm leModeleGenreFilm;
 
     public FenetreApplication(DaoVip leDaoVip, DaoEvenement leDaoEvenement, DaoFilm leDaoFilm, Connection laConnexion) throws SQLException {
 
         this.laConnexion = laConnexion;
+        ftp = new FTPSClient();
 
         this.leDaoVip = leDaoVip;
         this.leDaoEvenement = leDaoEvenement;
@@ -44,7 +47,6 @@ public class FenetreApplication extends javax.swing.JFrame {
 
         this.leModeleVip = new ModeleJTableVip(leDaoVip);
         this.leModeleEvenement = new ModeleJTableEvenement(leDaoEvenement, leModeleVip);
-        this.leModeleAddMariage = new ModeleJTableAddMariage(leDaoVip);
         this.leModeleGenreFilm = new ModeleJTableGenreFilm(leDaoFilm);
         this.leModeleFilm = new ModeleJTableFilm(leDaoFilm, leModeleGenreFilm);
 
@@ -56,8 +58,8 @@ public class FenetreApplication extends javax.swing.JFrame {
             leModeleEvenement.chargerLesEvenement();
             leModeleFilm.chargerLesFilm();
 
-            jLabel2.setText(Integer.toString(leModeleVip.getNbVip()) + " VIP dans la base");
-            jLabel6.setText(Integer.toString(leModeleEvenement.getNbEvenement()) + " Mariages dans la base");
+            nbVipBase.setText(Integer.toString(leModeleVip.getNbVip()) + " VIP dans la base");
+            nbMariageBase.setText(Integer.toString(leModeleEvenement.getNbEvenement()) + " Mariages dans la base");
             jLabel7.setText(Integer.toString(leModeleFilm.getNbFilm()) + " Films dans la base");
 
         } catch (Exception e) {
@@ -75,46 +77,48 @@ public class FenetreApplication extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollBar1 = new javax.swing.JScrollBar();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jButtonRefresh = new javax.swing.JButton();
+        Pane = new javax.swing.JTabbedPane();
+        panelVip = new javax.swing.JPanel();
+        ButtonRefreshVip = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txRecherche = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        ButtonSearchVip = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        laTable = new javax.swing.JTable();
-        addPhotoVip = new javax.swing.JButton();
-        deleteVip = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        addVip = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        tableVip = new javax.swing.JTable();
+        ButtonPhotoVip = new javax.swing.JButton();
+        ButtonDeleteVip = new javax.swing.JButton();
+        panelFonctionsVip = new javax.swing.JPanel();
+        ButtonAddVip = new javax.swing.JButton();
+        nbVipBase = new javax.swing.JLabel();
+        ButtonCommentVip = new javax.swing.JButton();
+        panelMariage = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableMariage = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jButton2 = new javax.swing.JButton();
+        ButtonSearchMariage = new javax.swing.JToggleButton();
+        ButtonAddDivorce = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        ButtonAddMariage = new javax.swing.JButton();
+        ButtonRefreshMariage = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jButton12 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        nbMariageBase = new javax.swing.JLabel();
+        ButtonDeleteMariage = new javax.swing.JButton();
+        panelFilm = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tableFilm = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        ButtonGenre = new javax.swing.JButton();
+        ButtonRealisation = new javax.swing.JButton();
+        ButtonAddFilm = new javax.swing.JButton();
+        ButtonRefreshFilm = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
-        jButton11 = new javax.swing.JButton();
+        ButtonSearchFilm = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
+        ButtonAfficheFilm = new javax.swing.JButton();
+        ButtonDeleteFilm = new javax.swing.JButton();
+        ButtonCommentFilm = new javax.swing.JButton();
+        panelAPropos = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -126,167 +130,179 @@ public class FenetreApplication extends javax.swing.JFrame {
             }
         });
 
-        jTabbedPane1.setForeground(new java.awt.Color(204, 0, 51));
-        jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTabbedPane1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jTabbedPane1.setOpaque(true);
-        jTabbedPane1.addFocusListener(new java.awt.event.FocusAdapter() {
+        Pane.setForeground(new java.awt.Color(204, 0, 51));
+        Pane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Pane.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        Pane.setOpaque(true);
+        Pane.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTabbedPane1FocusGained(evt);
+                PaneFocusGained(evt);
             }
         });
 
-        jButtonRefresh.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButtonRefresh.setForeground(new java.awt.Color(204, 0, 51));
-        jButtonRefresh.setText("Réinitialiser");
-        jButtonRefresh.addActionListener(new java.awt.event.ActionListener() {
+        ButtonRefreshVip.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonRefreshVip.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonRefreshVip.setText("Réinitialiser");
+        ButtonRefreshVip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRefreshActionPerformed(evt);
+                ButtonRefreshVipActionPerformed(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Recherche :");
 
-        jButton1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(204, 0, 51));
-        jButton1.setText("Rechercher");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ButtonSearchVip.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonSearchVip.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonSearchVip.setText("Rechercher");
+        ButtonSearchVip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ButtonSearchVipActionPerformed(evt);
             }
         });
 
-        laTable.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        laTable.setModel(leModeleVip);
-        laTable.setSelectionBackground(new java.awt.Color(0, 153, 153));
-        jScrollPane1.setViewportView(laTable);
+        tableVip.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        tableVip.setModel(leModeleVip);
+        tableVip.setSelectionBackground(new java.awt.Color(204, 0, 51));
+        jScrollPane1.setViewportView(tableVip);
 
-        addPhotoVip.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        addPhotoVip.setForeground(new java.awt.Color(204, 0, 51));
-        addPhotoVip.setText("Gestion photo VIP");
-        addPhotoVip.addActionListener(new java.awt.event.ActionListener() {
+        ButtonPhotoVip.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonPhotoVip.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonPhotoVip.setText("Gestion photo VIP");
+        ButtonPhotoVip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addPhotoVipActionPerformed(evt);
+                ButtonPhotoVipActionPerformed(evt);
             }
         });
 
-        deleteVip.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        deleteVip.setForeground(new java.awt.Color(204, 0, 51));
-        deleteVip.setText("Supprimer VIP");
-        deleteVip.addActionListener(new java.awt.event.ActionListener() {
+        ButtonDeleteVip.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonDeleteVip.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonDeleteVip.setText("Supprimer VIP");
+        ButtonDeleteVip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteVipActionPerformed(evt);
+                ButtonDeleteVipActionPerformed(evt);
             }
         });
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fonctions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 12), new java.awt.Color(204, 0, 51))); // NOI18N
+        panelFonctionsVip.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fonctions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 12), new java.awt.Color(204, 0, 51))); // NOI18N
 
-        addVip.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        addVip.setForeground(new java.awt.Color(204, 0, 51));
-        addVip.setText("Ajouter VIP");
-        addVip.addActionListener(new java.awt.event.ActionListener() {
+        ButtonAddVip.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonAddVip.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonAddVip.setText("Ajouter VIP");
+        ButtonAddVip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addVipActionPerformed(evt);
+                ButtonAddVipActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addVip, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+        javax.swing.GroupLayout panelFonctionsVipLayout = new javax.swing.GroupLayout(panelFonctionsVip);
+        panelFonctionsVip.setLayout(panelFonctionsVipLayout);
+        panelFonctionsVipLayout.setHorizontalGroup(
+            panelFonctionsVipLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ButtonAddVip, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addVip)
+        panelFonctionsVipLayout.setVerticalGroup(
+            panelFonctionsVipLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ButtonAddVip)
         );
 
-        jLabel2.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
-        jLabel2.setText("jLabel2");
+        nbVipBase.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
+        nbVipBase.setText("jLabel2");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        ButtonCommentVip.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonCommentVip.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonCommentVip.setText("Commentaire VIP");
+        ButtonCommentVip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCommentVipActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelVipLayout = new javax.swing.GroupLayout(panelVip);
+        panelVip.setLayout(panelVipLayout);
+        panelVipLayout.setHorizontalGroup(
+            panelVipLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelVipLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(addPhotoVip)
+                .addGroup(panelVipLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelVipLayout.createSequentialGroup()
+                        .addComponent(ButtonPhotoVip)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteVip)
+                        .addComponent(ButtonCommentVip)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ButtonDeleteVip)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButtonRefresh)
+                        .addComponent(nbVipBase))
+                    .addGroup(panelVipLayout.createSequentialGroup()
+                        .addComponent(ButtonRefreshVip)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txRecherche)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE))
+                        .addComponent(ButtonSearchVip))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelFonctionsVip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        panelVipLayout.setVerticalGroup(
+            panelVipLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelVipLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonRefresh)
+                .addGroup(panelVipLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtonRefreshVip)
                     .addComponent(jLabel1)
                     .addComponent(txRecherche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(ButtonSearchVip))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelVipLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelVipLayout.createSequentialGroup()
+                        .addComponent(panelFonctionsVip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addPhotoVip)
-                    .addComponent(deleteVip)
-                    .addComponent(jLabel2))
+                .addGroup(panelVipLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtonPhotoVip)
+                    .addComponent(ButtonDeleteVip)
+                    .addComponent(nbVipBase)
+                    .addComponent(ButtonCommentVip))
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Affichage des VIP", new javax.swing.ImageIcon("D:\\Drédré\\Desktop\\iconVip.png"), jPanel1); // NOI18N
+        Pane.addTab("Affichage des VIP", new javax.swing.ImageIcon("D:\\Drédré\\Desktop\\iconVip.png"), panelVip); // NOI18N
 
-        jTable1.setModel(leModeleEvenement);
-        jTable1.setSelectionBackground(new java.awt.Color(0, 153, 153));
-        jScrollPane2.setViewportView(jTable1);
+        tableMariage.setModel(leModeleEvenement);
+        tableMariage.setSelectionBackground(new java.awt.Color(0, 153, 153));
+        jScrollPane2.setViewportView(tableMariage);
 
-        jToggleButton1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jToggleButton1.setForeground(new java.awt.Color(204, 0, 51));
-        jToggleButton1.setText("Rechercher");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        ButtonSearchMariage.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonSearchMariage.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonSearchMariage.setText("Rechercher");
+        ButtonSearchMariage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                ButtonSearchMariageActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(204, 0, 51));
-        jButton2.setText("Ajouter divorce");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        ButtonAddDivorce.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonAddDivorce.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonAddDivorce.setText("Ajouter divorce");
+        ButtonAddDivorce.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                ButtonAddDivorceActionPerformed(evt);
             }
         });
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fonctions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 12), new java.awt.Color(204, 0, 51))); // NOI18N
         jPanel8.setForeground(new java.awt.Color(204, 0, 51));
 
-        jButton4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(204, 0, 51));
-        jButton4.setText("Ajouter Mariage");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        ButtonAddMariage.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonAddMariage.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonAddMariage.setText("Ajouter Mariage");
+        ButtonAddMariage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                ButtonAddMariageActionPerformed(evt);
             }
         });
 
@@ -294,118 +310,116 @@ public class FenetreApplication extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+            .addComponent(ButtonAddMariage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton4)
+            .addComponent(ButtonAddMariage)
         );
 
-        jButton9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(204, 0, 51));
-        jButton9.setText("Réinitialiser");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        ButtonRefreshMariage.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        ButtonRefreshMariage.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonRefreshMariage.setText("Réinitialiser");
+        ButtonRefreshMariage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                ButtonRefreshMariageActionPerformed(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Recherche :");
 
-        jLabel6.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
-        jLabel6.setText("jLabel6");
+        nbMariageBase.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
+        nbMariageBase.setText("jLabel6");
 
-        jButton12.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton12.setForeground(new java.awt.Color(204, 0, 51));
-        jButton12.setText("Supprimer mariage");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        ButtonDeleteMariage.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonDeleteMariage.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonDeleteMariage.setText("Supprimer mariage");
+        ButtonDeleteMariage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                ButtonDeleteMariageActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelMariageLayout = new javax.swing.GroupLayout(panelMariage);
+        panelMariage.setLayout(panelMariageLayout);
+        panelMariageLayout.setHorizontalGroup(
+            panelMariageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMariageLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                .addGroup(panelMariageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelMariageLayout.createSequentialGroup()
+                        .addComponent(ButtonAddDivorce)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton12)
+                        .addComponent(ButtonDeleteMariage)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton9)
+                        .addComponent(nbMariageBase))
+                    .addGroup(panelMariageLayout.createSequentialGroup()
+                        .addComponent(ButtonRefreshMariage)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton1))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE))
+                        .addComponent(ButtonSearchMariage))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        panelMariageLayout.setVerticalGroup(
+            panelMariageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMariageLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelMariageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton1)
-                    .addComponent(jButton9)
+                    .addComponent(ButtonSearchMariage)
+                    .addComponent(ButtonRefreshMariage)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(panelMariageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jLabel6)
-                    .addComponent(jButton12))
+                .addGroup(panelMariageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtonAddDivorce)
+                    .addComponent(nbMariageBase)
+                    .addComponent(ButtonDeleteMariage))
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Affichage des Mariages", new javax.swing.ImageIcon("D:\\Drédré\\Desktop\\iconMariage.png"), jPanel2); // NOI18N
+        Pane.addTab("Affichage des Mariages", new javax.swing.ImageIcon("D:\\Drédré\\Desktop\\iconMariage.png"), panelMariage); // NOI18N
 
-        jTable2.setModel(leModeleFilm);
-        jTable2.setSelectionBackground(new java.awt.Color(0, 153, 153));
-        jScrollPane3.setViewportView(jTable2);
+        tableFilm.setModel(leModeleFilm);
+        tableFilm.setSelectionBackground(new java.awt.Color(0, 153, 153));
+        jScrollPane3.setViewportView(tableFilm);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fonctions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 12), new java.awt.Color(204, 0, 51))); // NOI18N
 
-        jButton7.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(204, 0, 51));
-        jButton7.setText("Gérer les genres");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        ButtonGenre.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonGenre.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonGenre.setText("Gérer les genres");
+        ButtonGenre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                ButtonGenreActionPerformed(evt);
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(204, 0, 51));
-        jButton6.setText("Gérer les réalisations");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        ButtonRealisation.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonRealisation.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonRealisation.setText("Gérer les réalisations");
+        ButtonRealisation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                ButtonRealisationActionPerformed(evt);
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(204, 0, 51));
-        jButton5.setText("Ajouter un Film");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        ButtonAddFilm.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonAddFilm.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonAddFilm.setText("Ajouter un Film");
+        ButtonAddFilm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                ButtonAddFilmActionPerformed(evt);
             }
         });
 
@@ -413,125 +427,136 @@ public class FenetreApplication extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
-            .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ButtonGenre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ButtonRealisation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+            .addComponent(ButtonAddFilm, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jButton5)
+                .addComponent(ButtonAddFilm)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
+                .addComponent(ButtonRealisation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7))
+                .addComponent(ButtonGenre))
         );
 
-        jButton10.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(204, 0, 51));
-        jButton10.setText("Réinitialiser");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        ButtonRefreshFilm.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonRefreshFilm.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonRefreshFilm.setText("Réinitialiser");
+        ButtonRefreshFilm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                ButtonRefreshFilmActionPerformed(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Recherche :");
 
-        jButton11.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(204, 0, 51));
-        jButton11.setText("Rechercher");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        ButtonSearchFilm.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonSearchFilm.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonSearchFilm.setText("Rechercher");
+        ButtonSearchFilm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                ButtonSearchFilmActionPerformed(evt);
             }
         });
 
         jLabel7.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
         jLabel7.setText("jLabel7");
 
-        jButton3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(204, 0, 51));
-        jButton3.setText("Gérer Affiche");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        ButtonAfficheFilm.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonAfficheFilm.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonAfficheFilm.setText("Gérer Affiche");
+        ButtonAfficheFilm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                ButtonAfficheFilmActionPerformed(evt);
             }
         });
 
-        jButton8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(204, 0, 51));
-        jButton8.setText("Supprimer film");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        ButtonDeleteFilm.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonDeleteFilm.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonDeleteFilm.setText("Supprimer film");
+        ButtonDeleteFilm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                ButtonDeleteFilmActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        ButtonCommentFilm.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        ButtonCommentFilm.setForeground(new java.awt.Color(204, 0, 51));
+        ButtonCommentFilm.setText("Commentaire Film");
+        ButtonCommentFilm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCommentFilmActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelFilmLayout = new javax.swing.GroupLayout(panelFilm);
+        panelFilm.setLayout(panelFilmLayout);
+        panelFilmLayout.setHorizontalGroup(
+            panelFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFilmLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                .addGroup(panelFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelFilmLayout.createSequentialGroup()
+                        .addComponent(ButtonAfficheFilm)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8)
+                        .addComponent(ButtonCommentFilm)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ButtonDeleteFilm)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel7))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton10)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFilmLayout.createSequentialGroup()
+                        .addComponent(ButtonRefreshFilm)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton11))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE))
+                        .addComponent(ButtonSearchFilm))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        panelFilmLayout.setVerticalGroup(
+            panelFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFilmLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton10)
+                .addGroup(panelFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtonRefreshFilm)
                     .addComponent(jLabel5)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11))
+                    .addComponent(ButtonSearchFilm))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 186, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(panelFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jButton3)
-                    .addComponent(jButton8))
-                .addGap(10, 10, 10))
+                .addGroup(panelFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ButtonAfficheFilm)
+                    .addGroup(panelFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(ButtonDeleteFilm)
+                        .addComponent(ButtonCommentFilm)))
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Affichage des Films", new javax.swing.ImageIcon("D:\\Drédré\\Desktop\\iconFilm.png"), jPanel3); // NOI18N
+        Pane.addTab("Affichage des Films", new javax.swing.ImageIcon("D:\\Drédré\\Desktop\\iconFilm.png"), panelFilm); // NOI18N
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1004, Short.MAX_VALUE)
+        javax.swing.GroupLayout panelAProposLayout = new javax.swing.GroupLayout(panelAPropos);
+        panelAPropos.setLayout(panelAProposLayout);
+        panelAProposLayout.setHorizontalGroup(
+            panelAProposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 970, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelAProposLayout.setVerticalGroup(
+            panelAProposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 373, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("A propos", new javax.swing.ImageIcon("D:\\Drédré\\Desktop\\iconInfo.png"), jPanel6); // NOI18N
+        Pane.addTab("A propos", new javax.swing.ImageIcon("D:\\Drédré\\Desktop\\iconInfo.png"), panelAPropos); // NOI18N
 
         jPanel4.setBackground(new java.awt.Color(204, 0, 51));
 
@@ -561,14 +586,18 @@ public class FenetreApplication extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Pane)
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Pane)
+                .addGap(6, 6, 6))
         );
 
         pack();
@@ -587,10 +616,10 @@ public class FenetreApplication extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void ButtonAddDivorceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddDivorceActionPerformed
         // TODO add your handling code here:
         try {
-            int ligne = jTable1.getSelectedRow();
+            int ligne = tableMariage.getSelectedRow();
             if (ligne == -1) {
                 throw new Exception("Aucune ligne selectionnée");
             }
@@ -615,9 +644,9 @@ public class FenetreApplication extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur à l'ajout du divorce : " + e.getMessage(), JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_ButtonAddDivorceActionPerformed
 
-    private void addVipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVipActionPerformed
+    private void ButtonAddVipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddVipActionPerformed
         // TODO add your handling code here:
         try {
             Vip vip = new Vip();
@@ -629,66 +658,73 @@ public class FenetreApplication extends javax.swing.JFrame {
                 }
                 leModeleVip.insererVip(vip);
                 leModeleVip.chargerLesVip();
-                jLabel2.setText(Integer.toString(leModeleVip.getNbVip()) + " VIP dans la base");
+                nbVipBase.setText(Integer.toString(leModeleVip.getNbVip()) + " VIP dans la base");
             }
         } catch (Exception e) {
             //System.out.println("Exception à l'insertion : " + e.getMessage());
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
-    }//GEN-LAST:event_addVipActionPerformed
+    }//GEN-LAST:event_ButtonAddVipActionPerformed
 
-    private void deleteVipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteVipActionPerformed
+    private void ButtonDeleteVipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteVipActionPerformed
         // TODO add your handling code here:
         try {
-            int ligne = laTable.getSelectedRow();
+            int ligne = tableVip.getSelectedRow();
             Vip vip = leModeleVip.getVip(ligne);
+            if (ligne == -1) {
+                throw new Exception("Aucune ligne selectionnée");
+            }
             int comfirm = JOptionPane.showConfirmDialog(this, "Comfirmer suppression de : " + vip.getPrenomVip() + " " + vip.getNomVip() + " ?", "Avertissement", JOptionPane.YES_NO_OPTION);
             if (comfirm == 0) {
+                leModeleEvenement.supprimerEvenementVip(vip.getNumVip());
                 leModeleVip.supprimerVip(ligne);
+                leModeleVip.supprimerPhotoVip(vip,ftp);
+                leModeleVip.chargerLesVip();
+                leModeleEvenement.chargerLesEvenement();
             }
-            jLabel2.setText(Integer.toString(leModeleVip.getNbVip()) + " VIP dans la base");
+            nbVipBase.setText(Integer.toString(leModeleVip.getNbVip()) + " VIP dans la base");
 
         } catch (Exception e) {
             System.out.println("Exception à la suppression : " + e.getMessage());
         }
-    }//GEN-LAST:event_deleteVipActionPerformed
+    }//GEN-LAST:event_ButtonDeleteVipActionPerformed
 
-    private void addPhotoVipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPhotoVipActionPerformed
+    private void ButtonPhotoVipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonPhotoVipActionPerformed
         // TODO add your handling code here:
         try {
-            if (laTable.getSelectedRow() == -1) {
+            if (tableVip.getSelectedRow() == -1) {
                 throw new Exception("Aucune ligne VIP selectionnée");
             }
-            int ligne = laTable.getSelectedRow();
+            int ligne = tableVip.getSelectedRow();
             Vip vip = leModeleVip.getVip(ligne);
             
             
 
-            FenetreSaisiePhoto laSaisiePhoto = new FenetreSaisiePhoto(this, vip, leDaoVip);
+            FenetreSaisiePhoto laSaisiePhoto = new FenetreSaisiePhoto(this, vip, leDaoVip, ftp);
 
         } catch (Exception e) {
             System.out.println("Exception à l'insertion : " + e.getMessage());
         }
-    }//GEN-LAST:event_addPhotoVipActionPerformed
+    }//GEN-LAST:event_ButtonPhotoVipActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ButtonSearchVipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearchVipActionPerformed
         // TODO add your handling code here:
         try {
             leModeleVip.chargerLesVip(txRecherche.getText());
         } catch (SQLException ex) {
             Logger.getLogger(FenetreSaisieMariage.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ButtonSearchVipActionPerformed
 
-    private void jButtonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshActionPerformed
+    private void ButtonRefreshVipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRefreshVipActionPerformed
         try {
             leModeleVip.chargerLesVip();
         } catch (Exception ex) {
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtonRefreshActionPerformed
+    }//GEN-LAST:event_ButtonRefreshVipActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void ButtonAddMariageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddMariageActionPerformed
         // TODO add your handling code here:
         try {
             Evenement evenementAddMariage = new Evenement();
@@ -696,18 +732,18 @@ public class FenetreApplication extends javax.swing.JFrame {
             if (laSaisieMariage.doModal() == true) {
                 JOptionPane.showMessageDialog(null, "Mariage ajouté avec succès", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
-            jLabel6.setText(Integer.toString(leModeleEvenement.getNbEvenement()) + " Mariages dans la base");
+            nbMariageBase.setText(Integer.toString(leModeleEvenement.getNbEvenement()) + " Mariages dans la base");
         } catch (Exception ex) {
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_ButtonAddMariageActionPerformed
 
-    private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
+    private void PaneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PaneFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTabbedPane1FocusGained
+    }//GEN-LAST:event_PaneFocusGained
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void ButtonAddFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddFilmActionPerformed
         // TODO add your handling code here:
         try {
             Film film = new Film();
@@ -720,9 +756,9 @@ public class FenetreApplication extends javax.swing.JFrame {
             //System.out.println("Exception à l'ajout du film : " + e.getMessage());
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_ButtonAddFilmActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void ButtonGenreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonGenreActionPerformed
         // TODO add your handling code here:
         try {
             FenetreSaisieGenre laVueGenre = new FenetreSaisieGenre(this, leModeleGenreFilm);
@@ -730,9 +766,9 @@ public class FenetreApplication extends javax.swing.JFrame {
             //System.out.println("Exception à l'ajout du film : " + e.getMessage());
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_ButtonGenreActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void ButtonRealisationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRealisationActionPerformed
         // TODO add your handling code here:
         try {
             FenetreRealisation laVueRealisation = new FenetreRealisation(this, leModeleFilm, leModeleGenreFilm, leDaoFilm);
@@ -740,60 +776,60 @@ public class FenetreApplication extends javax.swing.JFrame {
             //System.out.println("Exception à l'ajout du film : " + e.getMessage());
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_ButtonRealisationActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void ButtonSearchMariageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearchMariageActionPerformed
         try {
             leModeleEvenement.chargerLesEvenement(jTextField1.getText());
         } catch (SQLException ex) {
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_ButtonSearchMariageActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void ButtonRefreshMariageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRefreshMariageActionPerformed
         // TODO add your handling code here:
         try {
             leModeleEvenement.chargerLesEvenement();
         } catch (SQLException ex) {
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_ButtonRefreshMariageActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void ButtonSearchFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearchFilmActionPerformed
         // TODO add your handling code here:
         try {
             leModeleFilm.chargerLesFilm(jTextField3.getText());
         } catch (SQLException ex) {
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_ButtonSearchFilmActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void ButtonRefreshFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRefreshFilmActionPerformed
         // TODO add your handling code here:
         try {
             leModeleFilm.chargerLesFilm();
         } catch (SQLException ex) {
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_ButtonRefreshFilmActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void ButtonAfficheFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAfficheFilmActionPerformed
         // TODO add your handling code here:
         try{
-            int ligne = jTable2.getSelectedRow();
+            int ligne = tableFilm.getSelectedRow();
             Film film = leModeleFilm.getFilm(ligne);
             
-            FenetreSaisieAffiche laSaisieAffiche = new FenetreSaisieAffiche(this, film, leModeleFilm);
+            FenetreSaisieAffiche laSaisieAffiche = new FenetreSaisieAffiche(this, film, leModeleFilm, ftp);
             
         }catch (Exception e){
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_ButtonAfficheFilmActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void ButtonDeleteFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteFilmActionPerformed
         // TODO add your handling code here:
         try{
-            int ligne = jTable2.getSelectedRow();
+            int ligne = tableFilm.getSelectedRow();
             Film film = leModeleFilm.getFilm(ligne);
             
             int comfirm = JOptionPane.showConfirmDialog(this, "Comfirmer suppression du film  : " + film.getTitreFilm() + " ?", "Avertissement", JOptionPane.YES_NO_OPTION);
@@ -804,68 +840,100 @@ public class FenetreApplication extends javax.swing.JFrame {
         }catch (Exception e){
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_ButtonDeleteFilmActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+    private void ButtonDeleteMariageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteMariageActionPerformed
         // TODO add your handling code here:
         try{
-            int ligne = jTable1.getSelectedRow();
+            int ligne = tableMariage.getSelectedRow();
             Evenement evenement = leModeleEvenement.getEvenement(ligne);
             
             int comfirm = JOptionPane.showConfirmDialog(this, "Comfirmer suppression du mariage ?", "Avertissement", JOptionPane.YES_NO_OPTION);
             if (comfirm == 0) {
                 leModeleEvenement.supprimerEvenement(evenement);
                 leModeleEvenement.chargerLesEvenement();
+                leModeleVip.chargerLesVip();
             }
         }catch (Exception e){
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
         
-    }//GEN-LAST:event_jButton12ActionPerformed
+    }//GEN-LAST:event_ButtonDeleteMariageActionPerformed
+
+    private void ButtonCommentVipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCommentVipActionPerformed
+        // TODO add your handling code here:
+        try {
+            int ligne = tableVip.getSelectedRow();
+            Vip vip = leModeleVip.getVip(ligne);
+            if (ligne == -1) {
+                throw new Exception("Aucune ligne selectionnée");
+            }
+            FenetreSaisieTextVip laSaisieCommentaireVip = new FenetreSaisieTextVip(this, vip, leModeleVip);
+        } catch (Exception e) {
+            System.out.println("Exception à la suppression : " + e.getMessage());
+        }
+    }//GEN-LAST:event_ButtonCommentVipActionPerformed
+
+    private void ButtonCommentFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCommentFilmActionPerformed
+        // TODO add your handling code here:
+        try {
+            int ligne = tableFilm.getSelectedRow();
+            if (ligne == -1) {
+                throw new Exception("Aucune ligne selectionnée");
+            }
+            Film film = leModeleFilm.getFilm(ligne);
+            FenetreSaisieTextFilm laSaisieCommentaireFilm = new FenetreSaisieTextFilm(this, film, leModeleFilm);
+
+        } catch (Exception e) {
+            System.out.println("Exception à la suppression : " + e.getMessage());
+        }
+    }//GEN-LAST:event_ButtonCommentFilmActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addPhotoVip;
-    private javax.swing.JButton addVip;
-    private javax.swing.JButton deleteVip;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JButton jButtonRefresh;
+    private javax.swing.JButton ButtonAddDivorce;
+    private javax.swing.JButton ButtonAddFilm;
+    private javax.swing.JButton ButtonAddMariage;
+    private javax.swing.JButton ButtonAddVip;
+    private javax.swing.JButton ButtonAfficheFilm;
+    private javax.swing.JButton ButtonCommentFilm;
+    private javax.swing.JButton ButtonCommentVip;
+    private javax.swing.JButton ButtonDeleteFilm;
+    private javax.swing.JButton ButtonDeleteMariage;
+    private javax.swing.JButton ButtonDeleteVip;
+    private javax.swing.JButton ButtonGenre;
+    private javax.swing.JButton ButtonPhotoVip;
+    private javax.swing.JButton ButtonRealisation;
+    private javax.swing.JButton ButtonRefreshFilm;
+    private javax.swing.JButton ButtonRefreshMariage;
+    private javax.swing.JButton ButtonRefreshVip;
+    private javax.swing.JButton ButtonSearchFilm;
+    private javax.swing.JToggleButton ButtonSearchMariage;
+    private javax.swing.JButton ButtonSearchVip;
+    private javax.swing.JTabbedPane Pane;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JTable laTable;
+    private javax.swing.JLabel nbMariageBase;
+    private javax.swing.JLabel nbVipBase;
+    private javax.swing.JPanel panelAPropos;
+    private javax.swing.JPanel panelFilm;
+    private javax.swing.JPanel panelFonctionsVip;
+    private javax.swing.JPanel panelMariage;
+    private javax.swing.JPanel panelVip;
+    private javax.swing.JTable tableFilm;
+    private javax.swing.JTable tableMariage;
+    private javax.swing.JTable tableVip;
     private javax.swing.JTextField txRecherche;
     // End of variables declaration//GEN-END:variables
 }
