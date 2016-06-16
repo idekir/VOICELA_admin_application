@@ -60,7 +60,7 @@ public class FenetreApplication extends javax.swing.JFrame {
 
             nbVipBase.setText(Integer.toString(leModeleVip.getNbVip()) + " VIP dans la base");
             nbMariageBase.setText(Integer.toString(leModeleEvenement.getNbEvenement()) + " Mariages dans la base");
-            jLabel7.setText(Integer.toString(leModeleFilm.getNbFilm()) + " Films dans la base");
+            nbFilmBase.setText(Integer.toString(leModeleFilm.getNbFilm()) + " Films dans la base");
 
         } catch (Exception e) {
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
@@ -114,7 +114,7 @@ public class FenetreApplication extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         ButtonSearchFilm = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        nbFilmBase = new javax.swing.JLabel();
         ButtonAfficheFilm = new javax.swing.JButton();
         ButtonDeleteFilm = new javax.swing.JButton();
         ButtonCommentFilm = new javax.swing.JButton();
@@ -163,7 +163,7 @@ public class FenetreApplication extends javax.swing.JFrame {
 
         tableVip.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         tableVip.setModel(leModeleVip);
-        tableVip.setSelectionBackground(new java.awt.Color(204, 0, 51));
+        tableVip.setSelectionBackground(new java.awt.Color(102, 102, 102));
         jScrollPane1.setViewportView(tableVip);
 
         ButtonPhotoVip.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -317,7 +317,7 @@ public class FenetreApplication extends javax.swing.JFrame {
             .addComponent(ButtonAddMariage)
         );
 
-        ButtonRefreshMariage.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        ButtonRefreshMariage.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         ButtonRefreshMariage.setForeground(new java.awt.Color(204, 0, 51));
         ButtonRefreshMariage.setText("Réinitialiser");
         ButtonRefreshMariage.addActionListener(new java.awt.event.ActionListener() {
@@ -462,8 +462,8 @@ public class FenetreApplication extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
-        jLabel7.setText("jLabel7");
+        nbFilmBase.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
+        nbFilmBase.setText("jLabel7");
 
         ButtonAfficheFilm.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         ButtonAfficheFilm.setForeground(new java.awt.Color(204, 0, 51));
@@ -506,7 +506,7 @@ public class FenetreApplication extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ButtonDeleteFilm)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7))
+                        .addComponent(nbFilmBase))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFilmLayout.createSequentialGroup()
                         .addComponent(ButtonRefreshFilm)
                         .addGap(18, 18, 18)
@@ -537,7 +537,7 @@ public class FenetreApplication extends javax.swing.JFrame {
                 .addGroup(panelFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ButtonAfficheFilm)
                     .addGroup(panelFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
+                        .addComponent(nbFilmBase)
                         .addComponent(ButtonDeleteFilm)
                         .addComponent(ButtonCommentFilm)))
                 .addContainerGap())
@@ -629,6 +629,9 @@ public class FenetreApplication extends javax.swing.JFrame {
             if (reponse != null) {
                 DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = format.parse(reponse);
+                if(divorce.getDateMariage().compareTo(date)>0){
+                    throw new Exception("Date antérieure à date mariage");
+                }
                 java.sql.Date sqlDate = new java.sql.Date(date.getTime());
                 divorce.setDateDivorce(sqlDate);
 
@@ -751,7 +754,7 @@ public class FenetreApplication extends javax.swing.JFrame {
             if (laSaisieFilm.doModal() == true) {
                 leModeleFilm.ajouterFilm(film);
             }
-            jLabel7.setText(Integer.toString(leModeleFilm.getNbFilm()) + " Films dans la base");
+            nbFilmBase.setText(Integer.toString(leModeleFilm.getNbFilm()) + " Films dans la base");
         } catch (Exception e) {
             //System.out.println("Exception à l'ajout du film : " + e.getMessage());
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
@@ -837,6 +840,7 @@ public class FenetreApplication extends javax.swing.JFrame {
                 leModeleFilm.supprimerFilm(film.getNumVisa());
                 leModeleFilm.chargerLesFilm();
             }
+            nbFilmBase.setText(Integer.toString(leModeleFilm.getNbFilm()) + " Films dans la base");
         }catch (Exception e){
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -854,6 +858,7 @@ public class FenetreApplication extends javax.swing.JFrame {
                 leModeleEvenement.chargerLesEvenement();
                 leModeleVip.chargerLesVip();
             }
+            nbMariageBase.setText(Integer.toString(leModeleEvenement.getNbEvenement()) + " Mariages dans la base");
         }catch (Exception e){
             Logger.getLogger(FenetreApplication.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -914,7 +919,6 @@ public class FenetreApplication extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel8;
@@ -924,6 +928,7 @@ public class FenetreApplication extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel nbFilmBase;
     private javax.swing.JLabel nbMariageBase;
     private javax.swing.JLabel nbVipBase;
     private javax.swing.JPanel panelAPropos;

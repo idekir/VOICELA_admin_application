@@ -395,9 +395,13 @@ public class FenetreSaisiePhoto extends javax.swing.JDialog {
             if (txLieuPhoto.getText().isEmpty()) {
                 throw new Exception("Champ lieu photo vide");
             }
+            Date dateCourante = new Date(); 
             String lieuPhoto = txLieuPhoto.getText();
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             Date date = format.parse(txDatePhoto.getText());
+            if (date.compareTo(dateCourante) >= 0) {
+                throw new Exception("date non valide");
+            }
             java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
             //insertion bdd

@@ -187,8 +187,6 @@ public class FenetreSaisieVip extends javax.swing.JDialog {
             if (txNom.getText().isEmpty()) {
                 throw new Exception("champ prenom vide");
             }
-            
-
             //prenom
             if (txPrenom.getText().isEmpty()) {
                 throw new Exception("champ nom vide");
@@ -213,8 +211,12 @@ public class FenetreSaisieVip extends javax.swing.JDialog {
             if (txDateNaiss.getText().isEmpty()) {
                 throw new Exception("champ date vide");
             }
+            Date dateCourante = new Date();
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             Date date = format.parse(txDateNaiss.getText());
+            if (date.compareTo(dateCourante) >= 0) {
+                throw new Exception("date non valide");
+            }
             java.sql.Date sqlDate = new java.sql.Date(date.getTime());
             vip.setDateNaissance(sqlDate);
 
